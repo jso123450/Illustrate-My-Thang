@@ -16,3 +16,6 @@
 - Javascript for an interactive UI experience
 - Database Management
 
+# WebSocket Resource
+- We started by taking a look at
+- https://github.com/dpallot/simple-websocket-server
