@@ -22,6 +22,8 @@
 - Javascript for an interactive UI experience
 - Database Management
 
-# WebSocket Resource
+# References
 - We started by taking a look at and will be using it as a reference for our chatroom
-- https://github.com/dpallot/simple-websocket-server
+  - https://github.com/dpallot/simple-websocket-server
+- Canvas
+  - http://tutorials.jenkov.com/html5-canvas/todataurl.html
