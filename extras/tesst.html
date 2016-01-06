@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<head>
+  <script>
+    var output;
+    var websocket;
+    function init(){
+    output=document.getElementById("output");
+    }
+    function connect(){
+    websocket=new WebSocket("ws://echo.websocket.org");
+    websocket.onopen=onOpen;
+    websocket.onclose=onClose;
+    websocket.onmessage=onMessage;
+    websocket.onerror=onError;
+    console.log("works");
+    }
+    function onOpen(e){
+    output.innerHTML="<p>connected";
+    }
+    function onClose(e){
+    output.innterHTML="disconnected";
+    }
+    function onMessage(e){
+      output.innerHTML="<p class='response'>Response:"+e.data+"</p>";
+    console.log(e.data);
+    }
+    function onError(e){
+    ouotputinnerHTML="err";
+    }
+    function sendMessage(){
+    m=document.getElementById("message").value;
+    websocket.send(m);
+    }
+  </script>
+</head>
+<body onload="init()">
+  <button type="button" onclick="connect()">connect</button>
+  <input type="text" name="box" id="message">
+  <input type="submit" value="Submit" onclick="sendMessage()">
+  
+  <br><br>
+  <div id="output">
+    here
+  </div>
+</body>
