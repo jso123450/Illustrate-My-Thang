@@ -27,3 +27,5 @@
   - https://github.com/dpallot/simple-websocket-server
 - Canvas
   - http://tutorials.jenkov.com/html5-canvas/todataurl.html
+- Flask-SocketIO
+  - https://flask-socketio.readthedocs.org/en/latest/
