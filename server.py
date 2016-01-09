@@ -6,7 +6,7 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-    return render_template('canvas.html')
+    return render_template('chat.html')
 
 @socketio.on('clientMessage')
 def recievedMessage(message):
