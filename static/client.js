@@ -7,6 +7,7 @@ $(document).ready(function(){
 
     $("form#sendMessage").submit(function(e){
 	ws.emit("clientMessage", {msg: $("#chatBar").val()});
+	console.log('good');
     });
 
     
