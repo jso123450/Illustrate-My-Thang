@@ -1,10 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template 
 from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-@app.route('/')
+@app.route('/', methods=["GET","POST"])
 def index():
     return render_template('chat.html')
 
