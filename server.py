@@ -8,9 +8,22 @@ socketio = SocketIO(app)
 def index():
     return render_template('chat.html')
 
+@socketio.on('connect')
+def connection():
+    emit('joined')
+
+@socketio.on('disconnect')
+def disconnect():
+    emit('disconnected')
+
 @socketio.on('clientMessage')
 def recievedMessage(message):
     emit('serverMessage', message, broadcast=True)
+
+@socketio.on('drawingMessage')
+def recievedImage(image):
+    emit('serverDrawing', broadcast=True)
+
 
 if __name__  ==  '__main__':
     app.debug = True
