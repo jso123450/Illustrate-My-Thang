@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
+
 <head>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
   <script src="../static/jquery.js"></script>
   <script type="text/javascript" charset="utf-8" src="../static/client.js"></script>
 </head>
+
 <body>
-  <form id = "sendMessage" method="POST" action="#">
-    <input type = "text" name = "chatBar" id = "chatBar">
-    <input type = "submit" value = "sendMsg">
-  </form>
-  <div id = "chat">
+  <br><br>
+  <input type="submit" name="connect" id="connect"> 
+  <input type="text" name="chatBar" id="chatBar">
+  <input type="submit" value="sendMsg" id="sendMsg">
+  <div id="chat">
     Chat: <p><p>
   </div>
 </body>
