@@ -1,13 +1,19 @@
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
-    var ws;
-    
+    var ws  = io.connect("localhost:8000");;
+
+    /*
     var connect = function connect(){
 	ws = io.connect("localhost:5000");
+	ws.emit("connect");
     }
     var disconnect = function disconnect(){
 	ws.emit("disconnect");
     }
+    */
+    ws.on("joined", function(){
+	window.alert("You have connected to the server.")
+    });
     
     ws.on("serverMessage", function(msg){
 	$("#chat").append("<p>message from server: " + msg + "</p>");
@@ -24,12 +30,11 @@ $(document).ready(function(){
     if (event.keyCode == 13){
 	sendMessage;
     }
-    
+    /*
     var con = document.getElementById("connect");
     con.addEventListener("click", sendMessage);
-    
     var discon = document.getElementById("disconnect");
     discon.addEventListener("click", sendMessage);
+    */
 
-    
 });
