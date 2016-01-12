@@ -21,8 +21,8 @@ def recievedMessage(message):
     emit('serverMessage', message, broadcast=True)
 
 @socketio.on('drawingMessage')
-def recievedImage(image):
-    emit('serverDrawing', broadcast=True)
+def recievedImage(xcor,ycor):
+    emit('serverDrawing',xcor,ycor, broadcast=True)
 
 
 if __name__  ==  '__main__':
