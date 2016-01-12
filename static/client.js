@@ -30,5 +30,6 @@ $(document).ready(function(){
     
     var discon = document.getElementById("disconnect");
     discon.addEventListener("click", sendMessage);
+
     
 });

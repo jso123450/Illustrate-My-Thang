@@ -3,11 +3,12 @@ from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
 socketio = SocketIO(app)
+people=[]
 
 @app.route('/', methods=["GET","POST"])
 def index():
     return render_template('chat.html')
-
+'''
 @socketio.on('connect')
 def connection():
     emit('joined')
@@ -15,6 +16,14 @@ def connection():
 @socketio.on('disconnect')
 def disconnect():
     emit('disconnected')
+'''
+
+@socketio.on('joined')
+def newPerson(person):
+    if len(people)==4:
+        emit('tooMany')
+    else:
+        people.append(person);
 
 @socketio.on('clientMessage')
 def recievedMessage(message):
