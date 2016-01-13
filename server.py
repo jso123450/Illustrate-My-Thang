@@ -20,7 +20,7 @@ def disconnect():
 
 @socketio.on('joined')
 def newPerson(person):
-    if len(people)==4:
+    if len(people)==5:
         emit('tooMany')
     else:
         people.append(person);
