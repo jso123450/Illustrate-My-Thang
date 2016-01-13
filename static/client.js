@@ -1,7 +1,7 @@
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
     var ws  = io.connect("localhost:5000");
-    
+    var id = -1;
     var joined = function joined(){
 	console.log("doing");
 	ws.emit("joined", "testip");
@@ -11,7 +11,11 @@ $(document).ready(function(){
 	console.log("toomany");
 	ws.disconnect();
     });
-    
+    ws.on("drawerID"), function(idNumber){
+	id = idNumber;
+	if (id == 4){
+	    ws.emit("gameStart")
+    });
     /*
     var connect = function connect(){
 	ws = io.connect("localhost:5000");
