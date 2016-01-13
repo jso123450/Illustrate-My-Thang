@@ -1,7 +1,17 @@
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
     var ws  = io.connect("localhost:5000");
-
+    
+    var joined = function joined(){
+	console.log("doing");
+	ws.emit("joined", "testip");
+    }
+    $(window).load(joined);
+    ws.on("tooMany", function(){
+	console.log("toomany");
+	ws.disconnect();
+    });
+    
     /*
     var connect = function connect(){
 	ws = io.connect("localhost:5000");
