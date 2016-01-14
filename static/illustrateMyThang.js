@@ -121,9 +121,10 @@ $(document).ready(function(){
     
     //load on connection
     var ws  = io.connect("localhost:5000");
-    var id = -1;
+    var userID = -1;
     var name = "";
     var person = prompt("Please enter your name");
+    var drawer = False;
     
     var joined = function joined(){
 	//console.log("doing");
@@ -139,10 +140,10 @@ $(document).ready(function(){
     });
 
     //round/game setup
-    ws.on("drawerID", function(idNumber){
-	id = idNumber;
-	if (id == 4){
-	    ws.emit("gameStart")
+    ws.on("drawerID", function(data){
+	userID = data.numID;
+	if (data.numPeople == 5){
+	    ws.emit("roundSetup");
 	}
     });
 
@@ -162,5 +163,9 @@ $(document).ready(function(){
     //enter key submission not working
     if (event.keyCode == 13){
 	sendMessage;
+    }
+    
+    window.onclose = function leaving(){
+	ws.emit("disconnected",userID)
     }
 });

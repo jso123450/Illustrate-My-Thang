@@ -7,7 +7,7 @@ people=[]
 words=["cats","dogs"]
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
-drawer=0
+drawer=-1
 
 @app.route('/', methods=["GET","POST"])
 def index():
@@ -30,7 +30,12 @@ def newPerson(person):
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
-        emit('drawerID', idNumber)
+        emit('drawerID', {numID: idNumber, numPeople: lem(userIDs)})
+
+@socketio.on('disconnected')
+def disconnected(userID):
+    usedIDs.remove(userID)
+    freeIDs.append(userID)
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
@@ -47,9 +52,12 @@ def gameStart():
    once it hits 3 game is over'''
    
 
-@socketio.on("roundStart")
-def roundStart():
-    return
+@socketio.on("roundSetup")
+def roundSetup():
+    if drawer >= len(usedIDs):
+        drawer=-1
+    drawer=drawer+1
+    emit("roundSetup2", userIDs[drawer], broadcast=True)
     
 
 if __name__  ==  '__main__':
