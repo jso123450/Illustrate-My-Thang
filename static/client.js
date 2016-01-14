@@ -1,55 +1,48 @@
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
+    
+    //load on connection
     var ws  = io.connect("localhost:5000");
     var id = -1;
+    var name = "";
+    var person = prompt("Please enter your name");
+    
     var joined = function joined(){
-	console.log("doing");
+	//console.log("doing");
 	ws.emit("joined", "testip");
+	person;
+	name = person;
+	//console.log(name);
     }
     $(window).load(joined);
     ws.on("tooMany", function(){
 	console.log("toomany");
 	ws.disconnect();
     });
-    ws.on("drawerID"), function(idNumber){
+
+    //round/game setup
+    ws.on("drawerID", function(idNumber){
 	id = idNumber;
 	if (id == 4){
 	    ws.emit("gameStart")
+	}
     });
-    /*
-    var connect = function connect(){
-	ws = io.connect("localhost:5000");
-	ws.emit("connect");
-    }
-    var disconnect = function disconnect(){
-	ws.emit("disconnect");
-    }
-    ws.on("joined", function(){
-	window.alert("You have connected to the server.")
-    });
-    */
-    
-    ws.on("serverMessage", function(msg){
-	$("#chat").append("<p>Message from Server: " + msg + "</p>");
+
+    //chat
+    ws.on("serverMessage", function(data){
+	$("#chat").append("<p>" + data.nam + ": " + data.msg + "</p>");
     });
 
     var sendMessage = function sendMessage(){
-	ws.emit("clientMessage", document.getElementById("chatBar").value);
+	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name});
 	document.getElementById("chatBar").value="";
 	//console.log('good');
     }
 
     var sendMsg = document.getElementById("sendMsg");
     sendMsg.addEventListener("click", sendMessage);
+    //enter key submission not working
     if (event.keyCode == 13){
 	sendMessage;
     }
-    
-    /*
-    var con = document.getElementById("connect");
-    con.addEventListener("click", sendMessage);
-    var discon = document.getElementById("disconnect");
-    discon.addEventListener("click", sendMessage);
-    */
-
 });
