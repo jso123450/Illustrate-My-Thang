@@ -33,8 +33,8 @@ def newPerson(person):
         emit('drawerID', idNumber)
 
 @socketio.on('clientMessage')
-def recievedMessage(message):
-    emit('serverMessage', message, broadcast=True)
+def recievedMessage(data):
+    emit('serverMessage', data, broadcast=True)
 
 @socketio.on('drawingMessage')
 def recievedImage(xcor,ycor):
@@ -48,6 +48,8 @@ def gameStart():
    
 
 @socketio.on("roundStart")
+def roundStart():
+    return
     
 
 if __name__  ==  '__main__':
