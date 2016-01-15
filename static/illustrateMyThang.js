@@ -120,12 +120,12 @@ $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
     
     //load on connection
-    var ws  = io.connect("localhost:5000");
-    var userID = -1;
+    var ws  = io.connect("localhost:5000");//connects to localhost until server is ready
+    var userID = -1; //creates default value for id number
     var name = "";
-    var person = prompt("Please enter your name");
+    var person = prompt("Please enter your name");//asks user to type in a name
     var drawer = False;
-    
+    //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
 	//console.log("doing");
 	ws.emit("joined", "testip");
@@ -133,12 +133,12 @@ $(document).ready(function(){
 	name = person;
 	//console.log(name);
     }
-    $(window).load(joined);
+    $(window).load(joined);//When window is loaded, call joined to set up client on server side
+    //Forces client to disconnect if there are already 5 clients connected
     ws.on("tooMany", function(){
 	console.log("toomany");
 	ws.disconnect();
     });
-
     //round/game setup
     ws.on("drawerID", function(data){
 	userID = data.numID;
@@ -146,25 +146,24 @@ $(document).ready(function(){
 	    ws.emit("roundSetup");
 	}
     });
-
-    //chat
+    //After a message is sent to the server and the server broadcasts the message,
+    //the message and the sender is added to the chat box
     ws.on("serverMessage", function(data){
 	$("#chat").append("<p>" + data.nam + ": " + data.msg + "</p>");
     });
-
+    //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
 	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name});
 	document.getElementById("chatBar").value="";
 	//console.log('good');
     }
-
+    //event listeners
     var sendMsg = document.getElementById("sendMsg");
     sendMsg.addEventListener("click", sendMessage);
     //enter key submission not working
     if (event.keyCode == 13){
 	sendMessage;
     }
-    
     window.onclose = function leaving(){
 	ws.emit("disconnected",userID)
     }
