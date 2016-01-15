@@ -30,7 +30,7 @@ def newPerson(person):
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
-        emit('drawerID', {numID: idNumber, numPeople: lem(userIDs)})
+        emit('drawerID', {numID: idNumber, numPeople: len(userIDs)})
 
 @socketio.on('disconnected')
 def disconnected(userID):
@@ -45,11 +45,9 @@ def recievedMessage(data):
 def recievedImage(xcor,ycor):
     emit('serverDrawing',xcor,ycor, broadcast=True)
 
-@socketio.on("gameStart")
-def gameStart():
-   '''round = 1
-   1 or 2
-   once it hits 3 game is over'''
+@socketio.on("roundStart")
+def roundStart():
+    emit('roundStart2', broadcast = True)
    
 
 @socketio.on("roundSetup")
