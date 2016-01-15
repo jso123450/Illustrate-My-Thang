@@ -146,6 +146,13 @@ $(document).ready(function(){
 	    ws.emit("roundSetup");
 	}
     });
+    ws.on("roundSetup2", function(drawerID){
+	if (userID == drawerID){
+	    drawer = True;
+	} else {
+	    drawer = False;
+	}
+    });
     //After a message is sent to the server and the server broadcasts the message,
     //the message and the sender is added to the chat box
     ws.on("serverMessage", function(data){
