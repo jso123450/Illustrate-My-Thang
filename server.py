@@ -3,7 +3,6 @@ from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-people=[]
 words=["cats","dogs"]
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
@@ -22,11 +21,10 @@ def disconnect():
     emit('disconnected')
 '''
 @socketio.on('joined')
-def newPerson(person):
-    if len(people)==5:
+def newPerson():
+    if len(usedIDs)==5:
         emit('tooMany')
     else:
-        people.append(person)
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)

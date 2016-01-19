@@ -108,7 +108,7 @@ $(document).ready(function(){
     var drawer = false;
     //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
-	ws.emit("joined", "testip");
+	ws.emit("joined");
 	person;
 	name = person;
     }
