@@ -1,3 +1,92 @@
+/* --------------------------- DRAWING & FORMATTING -----------------------*/
+var countdown = 60;
+var canvas = document.getElementById("drawcanvas");
+var context = canvas.getContext("2d");
+context.strokeStyle="black";
+context.lineWidth="5";
+var rect = canvas.getBoundingClientRect(); 
+
+var isDrawing=false;
+var pencil = document.getElementById("pencil");
+pencil.addEventListener("mousedown",function(e){
+    context.lineWidth="6";
+    context.strokeStyle="black";
+});
+pencil.style.top = "50px";
+pencil.style.left = "900px";
+pencil.style.position = "absolute";
+var eraser = document.getElementById("eraser");
+eraser.style.top = "150px";
+eraser.style.left = "900px";
+eraser.style.position = "absolute";
+eraser.addEventListener("mousedown",function(e){
+    context.strokeStyle="white";
+    context.lineWidth="15";
+});
+var blue = document.getElementById("blue");
+blue.addEventListener("mousedown",function(e){
+    context.strokeStyle="blue";
+});
+blue.style.top="250px";
+blue.style.left="900px";
+blue.style.position="absolute";
+
+var red = document.getElementById("red");
+red.addEventListener("mousedown",function(e){
+    context.strokeStyle="red";
+});
+red.style.top="350px";
+red.style.left="900px";
+red.style.position="absolute";
+
+var green = document.getElementById("green");
+green.addEventListener("mousedown",function(e){
+    context.strokeStyle="green";
+});
+green.style.top="450px";
+green.style.left="900px";
+green.style.position="absolute";
+
+var yellow = document.getElementById("yellow");
+yellow.addEventListener("mousedown",function(e){
+    context.strokeStyle="yellow";
+});
+yellow.style.top="550px";
+yellow.style.left="900px";
+yellow.style.position="absolute";
+var xPos;
+var yPos;
+var lastX;
+var lastY;
+var changeColor = function changeColor(event){
+    xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
+    yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
+    if (isDrawing){
+	context.beginPath();
+	context.lineJoin="round";
+	context.moveTo(lastX,lastY);
+	context.lineTo(xPos,yPos);
+	context.closePath();
+	context.stroke();
+    };
+    lastX = xPos;
+    lastY = yPos;
+};
+
+var drawing = function drawing(e){
+    canvas.style.cursor="crosshair";
+    isDrawing=true;
+};
+
+var notDraw = function notDraw(e){
+    canvas.style.cursor="default";
+    isDrawing=false;
+    
+};
+canvas.addEventListener("mousemove",changeColor);
+canvas.addEventListener("mousedown",drawing);
+canvas.addEventListener("mouseup",notDraw);
+
 /* ------------------------ SocketIO ------------------------------- */
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
@@ -9,12 +98,7 @@ $(document).ready(function(){
     timer.style.position = "absolute";
     timerC.font="30px Impact";
 
-    var countdown = 60;
-    var canvas = document.getElementById("drawcanvas");
-    var context = canvas.getContext("2d");
-    context.strokeStyle="black";
-    context.lineWidth="5";
-    var rect = canvas.getBoundingClientRect(); 
+
     
     //load on connection
     var ws  = io.connect("localhost:5000");//connects to localhost until server is ready
@@ -51,7 +135,7 @@ $(document).ready(function(){
 	    drawer = false;
 	}
     });
-    ws.on("roundStart2", function(){
+    ws.on("roundStart2", function(){/*
 	var timerInterval = setInterval(function(){
 	    if (countdown == 0){
 		clearInterval(timerInterval);
@@ -72,6 +156,7 @@ $(document).ready(function(){
 	    }
 	    countdown-=1;
 	},1000);
+*/
     });
     
     //After a message is sent to the server and the server broadcasts the message,
@@ -96,89 +181,7 @@ $(document).ready(function(){
 	ws.emit("disconnected",userID);
     }
     
-    /* --------------------------- DRAWING & FORMATTING -----------------------*/
 
-
-    var isDrawing=false;
-    var pencil = document.getElementById("pencil");
-    pencil.addEventListener("mousedown",function(e){
-	context.lineWidth="6";
-	context.strokeStyle="black";
-    });
-    pencil.style.top = "50px";
-    pencil.style.left = "900px";
-    pencil.style.position = "absolute";
-    var eraser = document.getElementById("eraser");
-    eraser.style.top = "150px";
-    eraser.style.left = "900px";
-    eraser.style.position = "absolute";
-    eraser.addEventListener("mousedown",function(e){
-	context.strokeStyle="white";
-	context.lineWidth="15";
-    });
-    var blue = document.getElementById("blue");
-    blue.addEventListener("mousedown",function(e){
-	context.strokeStyle="blue";
-    });
-    blue.style.top="250px";
-    blue.style.left="900px";
-    blue.style.position="absolute";
-
-    var red = document.getElementById("red");
-    red.addEventListener("mousedown",function(e){
-	context.strokeStyle="red";
-    });
-    red.style.top="350px";
-    red.style.left="900px";
-    red.style.position="absolute";
-
-    var green = document.getElementById("green");
-    green.addEventListener("mousedown",function(e){
-	context.strokeStyle="green";
-    });
-    green.style.top="450px";
-    green.style.left="900px";
-    green.style.position="absolute";
-
-    var yellow = document.getElementById("yellow");
-    yellow.addEventListener("mousedown",function(e){
-	context.strokeStyle="yellow";
-    });
-    yellow.style.top="550px";
-    yellow.style.left="900px";
-    yellow.style.position="absolute";
-    var xPos;
-    var yPos;
-    var lastX;
-    var lastY;
-    var changeColor = function changeColor(event){
-	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
-	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
-	if (isDrawing){
-	    context.beginPath();
-	    context.lineJoin="round";
-	    context.moveTo(lastX,lastY);
-	    context.lineTo(xPos,yPos);
-	    context.closePath();
-	    context.stroke();
-	};
-	lastX = xPos;
-	lastY = yPos;
-    };
-
-    var drawing = function drawing(e){
-	canvas.style.cursor="crosshair";
-	isDrawing=true;
-    };
-
-    var notDraw = function notDraw(e){
-	canvas.style.cursor="default";
-	isDrawing=false;
-	
-    };
-    canvas.addEventListener("mousemove",changeColor);
-    canvas.addEventListener("mousedown",drawing);
-    canvas.addEventListener("mouseup",notDraw);
 });
 
 
