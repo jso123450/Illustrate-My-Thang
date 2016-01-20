@@ -8,10 +8,7 @@ var rect = canvas.getBoundingClientRect();
 
 var isDrawing=false;
 var pencil = document.getElementById("pencil");
-pencil.addEventListener("mousedown",function(e){
-    context.lineWidth="6";
-    context.strokeStyle="black";
-});
+
 pencil.style.top = "50px";
 pencil.style.left = "900px";
 pencil.style.position = "absolute";
@@ -19,38 +16,27 @@ var eraser = document.getElementById("eraser");
 eraser.style.top = "150px";
 eraser.style.left = "900px";
 eraser.style.position = "absolute";
-eraser.addEventListener("mousedown",function(e){
-    context.strokeStyle="white";
-    context.lineWidth="15";
-});
+
 var blue = document.getElementById("blue");
-blue.addEventListener("mousedown",function(e){
-    context.strokeStyle="blue";
-});
+
 blue.style.top="250px";
 blue.style.left="900px";
 blue.style.position="absolute";
 
 var red = document.getElementById("red");
-red.addEventListener("mousedown",function(e){
-    context.strokeStyle="red";
-});
+
 red.style.top="350px";
 red.style.left="900px";
 red.style.position="absolute";
 
 var green = document.getElementById("green");
-green.addEventListener("mousedown",function(e){
-    context.strokeStyle="green";
-});
+
 green.style.top="450px";
 green.style.left="900px";
 green.style.position="absolute";
 
 var yellow = document.getElementById("yellow");
-yellow.addEventListener("mousedown",function(e){
-    context.strokeStyle="yellow";
-});
+
 yellow.style.top="550px";
 yellow.style.left="900px";
 yellow.style.position="absolute";
@@ -83,10 +69,31 @@ var notDraw = function notDraw(e){
     isDrawing=false;
     
 };
-canvas.addEventListener("mousemove",changeColor);
-canvas.addEventListener("mousedown",drawing);
-canvas.addEventListener("mouseup",notDraw);
-
+if (drawer){
+    pencil.addEventListener("mousedown",function(e){
+	context.lineWidth="6";
+	context.strokeStyle="black";
+    });
+    eraser.addEventListener("mousedown",function(e){
+	context.strokeStyle="white";
+	context.lineWidth="15";
+    });
+    red.addEventListener("mousedown",function(e){
+	context.strokeStyle="red";
+    });
+    blue.addEventListener("mousedown",function(e){
+	context.strokeStyle="blue";
+    });
+    green.addEventListener("mousedown",function(e){
+	context.strokeStyle="green";
+    });
+    yellow.addEventListener("mousedown",function(e){
+	context.strokeStyle="yellow";
+    });
+    canvas.addEventListener("mousemove",changeColor);
+    canvas.addEventListener("mousedown",drawing);
+    canvas.addEventListener("mouseup",notDraw);
+}
 
 /* ------------------------ SocketIO ------------------------------- */
 $(document).ready(function(){
