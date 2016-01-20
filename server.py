@@ -28,7 +28,8 @@ def newPerson():
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
-        emit('drawerID', {numID: idNumber, numPeople: len(userIDs)})
+        '''data={numID: idNumber, numPeople: len(usedIDs)}'''
+        emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
 def disconnected(userID):

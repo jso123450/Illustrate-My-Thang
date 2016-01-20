@@ -119,12 +119,9 @@ $(document).ready(function(){
 	ws.disconnect();
     });
     //round/game setup
-    ws.on("drawerID", function(data){
-	userID = data.numID;
+    ws.on("drawerID", function(numID){
+	userID = numID;
 	console.log(userID);
-	if (data.numPeople == 5){
-	    ws.emit("roundSetup");
-	}
     });
     ws.on("roundSetup2", function(drawerID){
 	if (userID == drawerID){
