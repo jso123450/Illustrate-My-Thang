@@ -6,7 +6,7 @@ socketio = SocketIO(app)
 words=["cats","dogs"]
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
-drawer=-1
+drawer=[4,0,1,2,3]
 
 @app.route('/', methods=["GET","POST"])
 def index():
@@ -43,19 +43,21 @@ def recievedMessage(data):
 def recievedImage(xcor,ycor):
     emit('serverDrawing',xcor,ycor, broadcast=True)
 
+@socketio.on("roundSetup")
+def roundSetup():
+    if len(usedIDs)==3:#change back to 5 later
+        changeDrawer()
+        emit("roundSetup2", drawer[0], broadcast=True)
+
 @socketio.on("roundStart")
 def roundStart():
     emit('roundStart2', broadcast = True)
    
-@socketio.on("roundSetup")
-def roundSetup():
-    changeDrawer()
-    emit("roundSetup2", usedIDs[drawer], broadcast=True)
-
 def changeDrawer():
-    if drawer >=len(usedIDs)-1:
-        drawer=-1
-    drawer=drawer+1
+    #if drawer >=len(
+    drawerID=drawer[0]
+    drawer.remove(drawerID)
+    drawer.append(drawerID)
     
 if __name__  ==  '__main__':
     app.debug = True

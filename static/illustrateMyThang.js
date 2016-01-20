@@ -87,6 +87,7 @@ canvas.addEventListener("mousemove",changeColor);
 canvas.addEventListener("mousedown",drawing);
 canvas.addEventListener("mouseup",notDraw);
 
+
 /* ------------------------ SocketIO ------------------------------- */
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
@@ -125,16 +126,16 @@ $(document).ready(function(){
 	ws.emit("roundSetup");
     });
     ws.on("roundSetup2", function(drawerID){
-	console.log(drawerID);
+	//console.log(drawerID);
 	if (userID == drawerID){
 	    drawer = true;
-	    console.log(drawer);
+	    //console.log(drawer);
 	    ws.emit("roundStart");
 	} else {
 	    drawer = false;
 	}
     });
-    ws.on("roundStart2", function(){/*
+    ws.on("roundStart2", function(){
 	var timerInterval = setInterval(function(){
 	    if (countdown == 0){
 		clearInterval(timerInterval);
@@ -155,7 +156,7 @@ $(document).ready(function(){
 	    }
 	    countdown-=1;
 	},1000);
-*/
+
     });
     
     //After a message is sent to the server and the server broadcasts the message,
