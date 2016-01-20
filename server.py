@@ -28,7 +28,6 @@ def newPerson():
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
-        '''data={numID: idNumber, numPeople: len(usedIDs)}'''
         emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
@@ -48,15 +47,16 @@ def recievedImage(xcor,ycor):
 def roundStart():
     emit('roundStart2', broadcast = True)
    
-
 @socketio.on("roundSetup")
 def roundSetup():
-    if drawer >= len(usedIDs):
+    changeDrawer()
+    emit("roundSetup2", usedIDs[drawer], broadcast=True)
+
+def changeDrawer():
+    if drawer >=len(usedIDs)-1:
         drawer=-1
     drawer=drawer+1
-    emit("roundSetup2", userIDs[drawer], broadcast=True)
     
-
 if __name__  ==  '__main__':
     app.debug = True
     socketio.run(app, host="0.0.0.0", port=5000)

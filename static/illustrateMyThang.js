@@ -122,8 +122,10 @@ $(document).ready(function(){
     ws.on("drawerID", function(numID){
 	userID = numID;
 	console.log(userID);
+	ws.emit("roundSetup");
     });
     ws.on("roundSetup2", function(drawerID){
+	console.log(drawerID);
 	if (userID == drawerID){
 	    drawer = true;
 	    console.log(drawer);
@@ -177,7 +179,9 @@ $(document).ready(function(){
     window.onclose = function leaving(){
 	ws.emit("disconnected",userID);
     }
-    
+    ws.on("test", function(data){
+	console.log(data);
+    });
 
 });
 
