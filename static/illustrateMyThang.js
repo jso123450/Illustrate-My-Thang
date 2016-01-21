@@ -48,6 +48,7 @@ var lastY;
 var changeColor = function changeColor(event){
     xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
     yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
+    ws.emit("coordinates",{"x":xPos,"y":yPos});
     if (isDrawing){
 	context.beginPath();
 	context.lineJoin="round";
@@ -58,6 +59,9 @@ var changeColor = function changeColor(event){
     };
     lastX = xPos;
     lastY = yPos;
+};
+ws.on("drawing",x,y){
+    console.log(x + " " +y);
 };
 
 var drawing = function drawing(e){
