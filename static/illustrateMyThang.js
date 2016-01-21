@@ -1,4 +1,5 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
+var drawer = false;
 var countdown = 60;
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
@@ -70,29 +71,7 @@ var notDraw = function notDraw(e){
     
 };
 if (drawer){
-    pencil.addEventListener("mousedown",function(e){
-	context.lineWidth="6";
-	context.strokeStyle="black";
-    });
-    eraser.addEventListener("mousedown",function(e){
-	context.strokeStyle="white";
-	context.lineWidth="15";
-    });
-    red.addEventListener("mousedown",function(e){
-	context.strokeStyle="red";
-    });
-    blue.addEventListener("mousedown",function(e){
-	context.strokeStyle="blue";
-    });
-    green.addEventListener("mousedown",function(e){
-	context.strokeStyle="green";
-    });
-    yellow.addEventListener("mousedown",function(e){
-	context.strokeStyle="yellow";
-    });
-    canvas.addEventListener("mousemove",changeColor);
-    canvas.addEventListener("mousedown",drawing);
-    canvas.addEventListener("mouseup",notDraw);
+    
 }
 
 /* ------------------------ SocketIO ------------------------------- */
@@ -113,7 +92,7 @@ $(document).ready(function(){
     var userID = -1; //creates default value for id number
     var name = "";
     var person = prompt("Please enter your name");//asks user to type in a name
-    var drawer = false;
+    
     //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
 	ws.emit("joined");
@@ -133,10 +112,31 @@ $(document).ready(function(){
 	ws.emit("roundSetup");
     });
     ws.on("roundSetup2", function(drawerID){
-	//console.log(drawerID);
 	if (userID == drawerID){
 	    drawer = true;
-	    //console.log(drawer);
+	    pencil.addEventListener("mousedown",function(e){
+		context.lineWidth="6";
+		context.strokeStyle="black";
+	    });
+	    eraser.addEventListener("mousedown",function(e){
+		context.strokeStyle="white";
+		context.lineWidth="15";
+	    });
+	    red.addEventListener("mousedown",function(e){
+		context.strokeStyle="red";
+	    });
+	    blue.addEventListener("mousedown",function(e){
+		context.strokeStyle="blue";
+	    });
+	    green.addEventListener("mousedown",function(e){
+		context.strokeStyle="green";
+	    });
+	    yellow.addEventListener("mousedown",function(e){
+		context.strokeStyle="yellow";
+	    });
+	    canvas.addEventListener("mousemove",changeColor);
+	    canvas.addEventListener("mousedown",drawing);
+	    canvas.addEventListener("mouseup",notDraw);
 	    ws.emit("roundStart");
 	} else {
 	    drawer = false;
