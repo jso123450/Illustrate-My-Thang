@@ -45,24 +45,6 @@ var xPos;
 var yPos;
 var lastX;
 var lastY;
-var changeColor = function changeColor(event){
-    xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
-    yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
-    ws.emit("coordinates",{"x":xPos,"y":yPos});
-    if (isDrawing){
-	context.beginPath();
-	context.lineJoin="round";
-	context.moveTo(lastX,lastY);
-	context.lineTo(xPos,yPos);
-	context.closePath();
-	context.stroke();
-    };
-    lastX = xPos;
-    lastY = yPos;
-};
-ws.on("drawing",x,y){
-    console.log(x + " " +y);
-};
 
 var drawing = function drawing(e){
     canvas.style.cursor="crosshair";
@@ -74,10 +56,6 @@ var notDraw = function notDraw(e){
     isDrawing=false;
     
 };
-if (drawer){
-    
-}
-
 /* ------------------------ SocketIO ------------------------------- */
 $(document).ready(function(){
     //var ws = io.connect("ws://104.131.91.167:5000");
@@ -109,6 +87,21 @@ $(document).ready(function(){
 	console.log("toomany");
 	ws.disconnect();
     });
+    var changeColor = function changeColor(event){
+	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
+	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
+	ws.emit("coordinates",{"x":xPos,"y":yPos});
+	if (isDrawing){
+	    context.beginPath();
+	    context.lineJoin="round";
+	    context.moveTo(lastX,lastY);
+	    context.lineTo(xPos,yPos);
+	    context.closePath();
+	    context.stroke();
+	};
+	lastX = xPos;
+	lastY = yPos;
+    };
     //round/game setup
     ws.on("drawerID", function(numID){
 	userID = numID;
@@ -194,7 +187,9 @@ $(document).ready(function(){
     ws.on("test", function(data){
 	console.log(data);
     });
-
+    ws.on("drawing",function(x,y){
+	console.log(x + " " +y);
+    });
 });
 
 

@@ -56,9 +56,11 @@ def roundStart():
 
 @socketio.on("coordinates")
 def coordinates(data):
+    
     x=data["x"]
     y=data["y"]
-    emit("drawing", x, y, broadcast = True)
+    toBeSent =""+str(x)+" "+str(y)
+    emit("drawing", toBeSent, broadcast = True)
     
 if __name__  ==  '__main__':
     app.debug = True
