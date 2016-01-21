@@ -39,25 +39,26 @@ def disconnected(userID):
 def recievedMessage(data):
     emit('serverMessage', data, broadcast=True)
 
-@socketio.on('drawingMessage')
-def recievedImage(xcor,ycor):
-    emit('serverDrawing',xcor,ycor, broadcast=True)
-
 @socketio.on("roundSetup")
 def roundSetup():
     if len(usedIDs)==3:#change back to 5 later
         changeDrawer()
         emit("roundSetup2", drawer[0], broadcast=True)
 
-@socketio.on("roundStart")
-def roundStart():
-    emit('roundStart2', broadcast = True)
-   
 def changeDrawer():
-    #if drawer >=len(
     drawerID=drawer[0]
     drawer.remove(drawerID)
     drawer.append(drawerID)
+
+@socketio.on("roundStart")
+def roundStart():
+    emit('roundStart2', broadcast = True)
+
+@socketio.on("coordinates")
+def coordinates(data):
+    x=data["x"]
+    y=data["y"]
+    emit("drawing", x, y, broadcast = True)
     
 if __name__  ==  '__main__':
     app.debug = True
