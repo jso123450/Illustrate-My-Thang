@@ -110,6 +110,7 @@ $(document).ready(function(){
 	ws.emit("roundSetup");
     });
     ws.on("roundSetup2", function(data){
+	console.log(data[1]);
 	if (userID == data[0]){
 	    drawer = true;
 	    pencil.addEventListener("mousedown",function(e){
