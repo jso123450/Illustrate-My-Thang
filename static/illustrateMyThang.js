@@ -189,9 +189,10 @@ $(document).ready(function(){
     });
     ws.on("drawing",function(coords){
 	
-	if (drawer){
+	if (!drawer){
 	    xPos=coords.split(" ")[0];
 	    yPos=coords.split(" ")[1];
+	    console.log(xPos+" "+yPos);
 	    context.beginPath();
 	    context.lineJoin="round";
 	    context.moveTo(lastX,lastY);
