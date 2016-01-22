@@ -189,11 +189,11 @@ $(document).ready(function(){
     });
     ws.on("drawing",function(coordData){
 	console.log(coordData[4]);
+	xPos = coordData[0];
+	yPos = coordData[1];
 	if (!drawer && coordData[4]){
 	    context.lineWidth = coordData[3];
 	    context.strokeStyle = coordData[2];
-	    xPos=coordData[0];
-	    yPos=coordData[1];
 	    console.log(xPos+" "+yPos);
 	    context.beginPath();
 	    context.lineJoin="round";
@@ -201,9 +201,9 @@ $(document).ready(function(){
 	    context.lineTo(xPos,yPos);
 	    context.closePath();
 	    context.stroke();
-	    lastX = xPos;
-	    lastY = yPos;
 	};
+	lastX = xPos;
+	lastY = yPos;
     });
 });
 
