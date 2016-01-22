@@ -65,7 +65,10 @@ def coordinates(data):
     
     x=data["x"]
     y=data["y"]
-    toBeSent =str(x)+" "+str(y)
+    color = data["color"]
+    width = data["width"]
+    isDrawing = data["isDrawing"]
+    toBeSent =str(x)+" "+str(y) + " " +color + " " + width + " " + isDrawing
     emit("drawing", toBeSent, broadcast = True)
     
 if __name__  ==  '__main__':

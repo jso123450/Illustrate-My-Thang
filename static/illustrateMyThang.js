@@ -45,6 +45,7 @@ var xPos;
 var yPos;
 var lastX;
 var lastY;
+var coordData;
 
 var drawing = function drawing(e){
     canvas.style.cursor="crosshair";
@@ -91,7 +92,7 @@ $(document).ready(function(){
     var changeColor = function changeColor(event){
 	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
 	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
-	ws.emit("coordinates",{"x":xPos,"y":yPos});
+	ws.emit("coordinates",{"x":xPos,"y":yPos,"color": context.strokeStyle, "width": context.lineWidth,"isDrawing": isDrawing});
 	if (isDrawing){
 	    context.beginPath();
 	    context.lineJoin="round";
@@ -187,10 +188,12 @@ $(document).ready(function(){
 	console.log(data);
     });
     ws.on("drawing",function(coords){
-	
-	if (!drawer){
-	    xPos=coords.split(" ")[0];
-	    yPos=coords.split(" ")[1];
+	coordData = coords.split(" ");
+	if (!drawer && coordData[4]){
+	    context.lineWidth = coordData[3];
+	    context.strokeStyle = coordData[2];
+	    xPos=coordData[0];
+	    yPos=coordData[1];
 	    console.log(xPos+" "+yPos);
 	    context.beginPath();
 	    context.lineJoin="round";
