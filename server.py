@@ -68,8 +68,7 @@ def coordinates(data):
     color = data["color"]
     width = data["width"]
     isDrawing = data["isDrawing"]
-    toBeSent =str(x)+" "+str(y) + " " +color + " " + width + " " + isDrawing
-    emit("drawing", toBeSent, broadcast = True)
+    emit("drawing", (x, y, color, width, isDrawing), broadcast = True)
     
 if __name__  ==  '__main__':
     app.debug = True

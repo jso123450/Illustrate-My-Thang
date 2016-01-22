@@ -45,7 +45,6 @@ var xPos;
 var yPos;
 var lastX;
 var lastY;
-var coordData;
 
 var drawing = function drawing(e){
     canvas.style.cursor="crosshair";
@@ -188,8 +187,8 @@ $(document).ready(function(){
     ws.on("test", function(data){
 	console.log(data);
     });
-    ws.on("drawing",function(coords){
-	coordData = coords.split(" ");
+    ws.on("drawing",function(coordData){
+	console.log(coordData[4]);
 	if (!drawer && coordData[4]){
 	    context.lineWidth = coordData[3];
 	    context.strokeStyle = coordData[2];
