@@ -74,6 +74,7 @@ $(document).ready(function(){
     var userID = -1; //creates default value for id number
     var name = "";
     var person = prompt("Please enter your name");//asks user to type in a name
+    var word="";
     
     //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
@@ -108,8 +109,8 @@ $(document).ready(function(){
 	console.log(userID);
 	ws.emit("roundSetup");
     });
-    ws.on("roundSetup2", function(drawerID){
-	if (userID == drawerID){
+    ws.on("roundSetup2", function(data){
+	if (userID == data[0]){
 	    drawer = true;
 	    pencil.addEventListener("mousedown",function(e){
 		context.lineWidth="6";
@@ -138,6 +139,7 @@ $(document).ready(function(){
 	} else {
 	    drawer = false;
 	}
+	word=data[1];
     });
     ws.on("roundStart2", function(){
 	var timerInterval = setInterval(function(){
@@ -177,10 +179,7 @@ $(document).ready(function(){
     //event listeners
     var sendMsg = document.getElementById("sendMsg");
     sendMsg.addEventListener("click", sendMessage);
-    //enter key submission not working
-    if (event.keyCode == 13){
-	sendMessage;
-    }
+    
     window.onclose = function leaving(){
 	ws.emit("disconnected",userID);
     }

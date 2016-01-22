@@ -43,12 +43,18 @@ def recievedMessage(data):
 def roundSetup():
     if len(usedIDs)==3:#change back to 5 later
         changeDrawer()
-        emit("roundSetup2", drawer[0], broadcast=True)
+        changeWord()
+        emit("roundSetup2", (drawer[0], words[0]), broadcast=True)
 
 def changeDrawer():
     drawerID=drawer[0]
     drawer.remove(drawerID)
     drawer.append(drawerID)
+
+def changeWord():
+    word=words[0]
+    words.remove(word)
+    words.append(word)
 
 @socketio.on("roundStart")
 def roundStart():
