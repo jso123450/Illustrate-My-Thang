@@ -187,8 +187,20 @@ $(document).ready(function(){
     ws.on("test", function(data){
 	console.log(data);
     });
-    ws.on("drawing",function(x,y){
-	console.log(x + " " +y);
+    ws.on("drawing",function(coords){
+	
+	if (drawer){
+	    xPos=coords.split(" ")[0];
+	    yPos=coords.split(" ")[1];
+	    context.beginPath();
+	    context.lineJoin="round";
+	    context.moveTo(lastX,lastY);
+	    context.lineTo(xPos,yPos);
+	    context.closePath();
+	    context.stroke();
+	    lastX = xPos;
+	    lastY = yPos;
+	};
     });
 });
 
