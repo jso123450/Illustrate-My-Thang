@@ -44,7 +44,7 @@ def roundSetup():
     if len(usedIDs)==3:#change back to 5 later
         changeDrawer()
         changeWord()
-        emit("roundSetup2", (drawer[0], words[0]), broadcast=True)
+        emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
 
 def changeDrawer():
     drawerID=drawer[0]
@@ -68,7 +68,7 @@ def coordinates(data):
     color = data["color"]
     width = data["width"]
     isDrawing = data["isDrawing"]
-    emit("drawing", (x, y, color, width, isDrawing), broadcast = True)
+    emit("drawing", [x, y, color, width, isDrawing], broadcast = True)
     
 if __name__  ==  '__main__':
     app.debug = True

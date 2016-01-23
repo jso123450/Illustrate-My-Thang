@@ -189,9 +189,9 @@ $(document).ready(function(){
     });
     ws.on("drawing",function(coordData){
 	console.log(coordData[4]);
-	xPos = coordData[0];
-	yPos = coordData[1];
 	if (!drawer && coordData[4]){
+	    xPos = coordData[0];
+	    yPos = coordData[1];
 	    context.lineWidth = coordData[3];
 	    context.strokeStyle = coordData[2];
 	    console.log(xPos+" "+yPos);
