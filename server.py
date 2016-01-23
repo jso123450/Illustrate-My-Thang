@@ -10,7 +10,7 @@ drawer=[4,0,1,2,3]
 
 @app.route('/', methods=["GET","POST"])
 def index():
-    return render_template('chat.html')
+    return render_template('index.html')
 '''
 @socketio.on('connect')
 def connection():
