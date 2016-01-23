@@ -189,21 +189,23 @@ $(document).ready(function(){
     });
     ws.on("drawing",function(coordData){
 	console.log(coordData[4]);
-	if (!drawer && coordData[4]){
+	if (!drawer){
 	    xPos = coordData[0];
 	    yPos = coordData[1];
-	    context.lineWidth = coordData[3];
-	    context.strokeStyle = coordData[2];
-	    console.log(xPos+" "+yPos);
-	    context.beginPath();
-	    context.lineJoin="round";
-	    context.moveTo(lastX,lastY);
-	    context.lineTo(xPos,yPos);
-	    context.closePath();
-	    context.stroke();
+	    if ( coordData[4]){
+		context.lineWidth = coordData[3];
+		context.strokeStyle = coordData[2];
+		console.log(xPos+" "+yPos);
+		context.beginPath();
+		context.lineJoin="round";
+		context.moveTo(lastX,lastY);
+		context.lineTo(xPos,yPos);
+		context.closePath();
+		context.stroke();
+	    };
+	    lastX = xPos;
+	    lastY = yPos;
 	};
-	lastX = xPos;
-	lastY = yPos;
     });
 });
 
