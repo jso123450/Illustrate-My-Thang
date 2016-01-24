@@ -1,6 +1,6 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
 var drawer = false;
-var countdown = 3;//change to 60 later
+var countdown = 30;//change to 60 later
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
 context.strokeStyle="black";
@@ -100,6 +100,8 @@ $(document).ready(function(){
 	ws.disconnect();
     });
     var changeColor = function changeColor(event){
+	var rect = canvas.getBoundingClientRect(); 
+	
 	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
 	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
 	ws.emit("coordinates",{"x":xPos,"y":yPos,"color": context.strokeStyle, "width": context.lineWidth,"isDrawing": isDrawing});
@@ -161,7 +163,7 @@ $(document).ready(function(){
 	word=data[1];
     });
     ws.on("roundStart2", function(){
-	countdown=3;//change to 60 later
+	countdown=30;//change to 60 later
 	started=true;
     });
     
