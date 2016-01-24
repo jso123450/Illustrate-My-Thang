@@ -4,6 +4,7 @@ from flask.ext.socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 words=["cats","dogs"]
+word=""
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
 drawer=[4,0,1,2,3]
@@ -37,6 +38,8 @@ def disconnected(userID):
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
+    if (word in data["msg"]):
+        
     emit('serverMessage', data, broadcast=True)
 
 @socketio.on("roundSetup")
@@ -59,6 +62,10 @@ def changeWord():
 @socketio.on("roundStart")
 def roundStart():
     emit('roundStart2', broadcast = True)
+
+@socketio.on("roundEnd")
+def roundEnd():
+    emit("transition",broadcast = True)
 
 @socketio.on("coordinates")
 def coordinates(data):

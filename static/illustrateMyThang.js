@@ -133,6 +133,7 @@ $(document).ready(function(){
 		canvas.removeEventListener("mousedown",drawing);
 		canvas.removeEventListener("mouseup",notDraw);
 		canvas.style.cursor="default";
+		ws.emit("roundEnd");
 	    };
 	    timerC.fillStyle = "blue";
 	    timerC.arc(50,50,40,0,360);
@@ -188,7 +189,21 @@ $(document).ready(function(){
 	    lastX = xPos;
 	    lastY = yPos;
 	};
-    });
+    });//THIS PART MAKES IT SET COUNTDOWN TO 5 SECOND TRANSITION PERIOD AT THE END EMITS ROUNDSTART AGAIN
+    ws.on("transition",function(){
+	countdown = 5;
+	timerInterval = setInterval(function(){
+	    if (countdown == 0){
+		clearInterval(timerInterval);
+		ws.emit("roundEnd"); //<----FIX THIS
+	    };
+	    timerC.fillStyle = "blue";
+	    timerC.arc(50,50,40,0,360);
+	    timerC.fill();
+	    timerC.fillStyle = "white";
+	    timerC.fillText(countdown,40,60);
+	    countdown-=1;
+	},1000);
 });
 
 
