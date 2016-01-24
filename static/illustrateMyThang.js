@@ -91,6 +91,7 @@ $(document).ready(function(){
 	console.log(data[1]);
 	if (userID == data[0]){
 	    drawer = true;
+	    $("#heading").append($("<h2>The word is "+data[1]+"</h2>"));
 	    pencil.addEventListener("mousedown",function(e){
 		context.lineWidth="6";
 		context.strokeStyle="black";
