@@ -202,7 +202,7 @@ $(document).ready(function(){
     //the message and the sender is added to the chat box
     ws.on("serverMessage", function(data){
 	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
-	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
+	$("#chat").append("<div class='chat-box-right'>"+data.msg+"</div><div class='chat-box-name-right'>"+data.nam+"</div><hr class='hr-clas'/>");
 	if (data.winner){
 	    if(userID==data.uID){
 		points++;
