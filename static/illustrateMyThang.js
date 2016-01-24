@@ -127,12 +127,14 @@ $(document).ready(function(){
     };
     //round/game setup
     ws.on("drawerID", function(numID){
+	
 	userID = numID;
 	console.log(userID);
 	ws.emit("roundSetup");
     });
     ws.on("roundSetup2", function(data){
 	console.log(data[1]);
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	if (userID == data[0]){
 	    drawer = true;
 	    $("#heading").append($("<h2>The word is "+data[1]+"</h2>"));
@@ -188,7 +190,7 @@ $(document).ready(function(){
 	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
 	if (data.winner){
 	    if(userID==data.uID){
-		point++;
+		points++;
 		ws.emit("roundBuffer");
 	    }
 	}
