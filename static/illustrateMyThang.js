@@ -66,6 +66,10 @@ $(document).ready(function(){
 	console.log("toomany");
 	ws.disconnect();
     });
+    ws.on("gameStarted",function(){
+	console.log("game has started.can't join");
+	ws.disconnect();
+    });
     var changeColor = function changeColor(event){
 	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
 	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
@@ -91,6 +95,7 @@ $(document).ready(function(){
 	console.log(data[1]);
 	if (userID == data[0]){
 	    drawer = true;
+	    $("#heading").append($("<h2>The word is "+data[1]+"</h2>"));
 	    pencil.addEventListener("mousedown",function(e){
 		context.lineWidth="6";
 		context.strokeStyle="black";
@@ -122,6 +127,7 @@ $(document).ready(function(){
 	    ws.emit("roundStart");
 	} else {
 	    drawer = false;
+	    $("#heading").html("<h1> Illustrate My Thang </h1>");
 	}
 	word=data[1];
     });
@@ -165,7 +171,7 @@ $(document).ready(function(){
     var sendMsg = document.getElementById("sendMsg");
     sendMsg.addEventListener("click", sendMessage);
     
-    window.onclose = function leaving(){
+    window.onunload = function leaving(){
 	ws.emit("disconnected",userID);
     }
     ws.on("test", function(data){
