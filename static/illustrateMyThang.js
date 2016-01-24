@@ -92,7 +92,8 @@ $(document).ready(function(){
     
     //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
-	ws.emit("joined");
+	console.log(person);
+	ws.emit("joined",person);
 	person;
 	name = person;
     }
@@ -130,6 +131,12 @@ $(document).ready(function(){
 	userID = numID;
 	console.log(userID);
 	ws.emit("roundSetup");
+    });
+    ws.on('chatAlert', function(person){
+	$("#chat").append("<div class='chat-box-left'>"+person+" has joined.</div><hr class='hr-clas'/>");
+    });
+    ws.on('chatAlertDC', function(person){
+	$("#chat").append("<div class='chat-box-left'>"+person+" has left.</div><hr class='hr-clas'/>");
     });
     ws.on("roundSetup2", function(data){
 	console.log(data[1]);
@@ -205,7 +212,7 @@ $(document).ready(function(){
     sendMsg.addEventListener("click", sendMessage);
     
     window.onunload = function leaving(){
-	ws.emit("disconnected",userID);
+	ws.emit("disconnected",[userID,name]);
     }
     ws.on("test", function(data){
 	console.log(data);
