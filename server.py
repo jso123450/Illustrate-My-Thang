@@ -62,7 +62,6 @@ def roundStart():
 
 @socketio.on("coordinates")
 def coordinates(data):
-    
     x=data["x"]
     y=data["y"]
     color = data["color"]

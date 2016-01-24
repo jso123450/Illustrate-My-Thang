@@ -7,40 +7,20 @@ context.strokeStyle="black";
 context.lineWidth="5";
 var rect = canvas.getBoundingClientRect(); 
 
-var isDrawing=false;
+var isDrawing = false;
+
 var pencil = document.getElementById("pencil");
 
-pencil.style.top = "50px";
-pencil.style.left = "900px";
-pencil.style.position = "absolute";
 var eraser = document.getElementById("eraser");
-eraser.style.top = "150px";
-eraser.style.left = "900px";
-eraser.style.position = "absolute";
 
 var blue = document.getElementById("blue");
 
-blue.style.top="250px";
-blue.style.left="900px";
-blue.style.position="absolute";
-
 var red = document.getElementById("red");
-
-red.style.top="350px";
-red.style.left="900px";
-red.style.position="absolute";
 
 var green = document.getElementById("green");
 
-green.style.top="450px";
-green.style.left="900px";
-green.style.position="absolute";
-
 var yellow = document.getElementById("yellow");
 
-yellow.style.top="550px";
-yellow.style.left="900px";
-yellow.style.position="absolute";
 var xPos;
 var yPos;
 var lastX;
@@ -169,13 +149,13 @@ $(document).ready(function(){
     //After a message is sent to the server and the server broadcasts the message,
     //the message and the sender is added to the chat box
     ws.on("serverMessage", function(data){
-	$("#chat").append("<p>" + data.nam + ": " + data.msg + "</p>");
+	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
+	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
     });
     //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
 	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name});
 	document.getElementById("chatBar").value="";
-	//console.log('good');
     }
     //event listeners
     var sendMsg = document.getElementById("sendMsg");
@@ -188,7 +168,6 @@ $(document).ready(function(){
 	console.log(data);
     });
     ws.on("drawing",function(coordData){
-	console.log(coordData[4]);
 	if (!drawer){
 	    xPos = coordData[0];
 	    yPos = coordData[1];
