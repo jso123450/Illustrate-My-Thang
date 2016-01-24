@@ -36,6 +36,7 @@ def newPerson(person):
         usedIDs.append(idNumber)
         drawer.append(idNumber)
         emit('chatAlert', person, broadcast=True)
+        emit('peopleOnline', names, broadcast=True)
         emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
@@ -48,6 +49,7 @@ def disconnected(userInfo):
         global gameStarted
         gameStarted=False
     emit('chatAlertDC', userInfo[1], broadcast=True)
+    emit('peopleOnline', names, broadcast=True)
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
