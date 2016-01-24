@@ -159,7 +159,7 @@ $(document).ready(function(){
     var sendMsg = document.getElementById("sendMsg");
     sendMsg.addEventListener("click", sendMessage);
     
-    window.onclose = function leaving(){
+    window.onunload = function leaving(){
 	ws.emit("disconnected",userID);
     }
     ws.on("test", function(data){
