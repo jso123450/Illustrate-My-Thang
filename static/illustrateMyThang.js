@@ -1,6 +1,6 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
 var drawer = false;
-var countdown = 3;//change to 60 later
+var countdown = 60;
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
 context.strokeStyle="black";
@@ -167,12 +167,12 @@ $(document).ready(function(){
 	word=data[1];
     });
     ws.on("roundStart2", function(){
-	countdown=3;//change to 60 later
+	countdown=60;
 	started=true;
     });
     ws.on("roundBuffer2", function(){
 	console.log("buffer");
-	countdown=5;//change to 10 later
+	countdown=5;
 	buffer=true;
     });
     
@@ -181,10 +181,13 @@ $(document).ready(function(){
     ws.on("serverMessage", function(data){
 	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
 	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
+	if (data.winner){
+	    ws.emit("roundBuffer");
+	}
     });
     //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
-	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name});
+	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false});
 	document.getElementById("chatBar").value="";
     }
     //event listeners
