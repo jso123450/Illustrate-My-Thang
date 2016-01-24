@@ -55,6 +55,7 @@ $(document).ready(function(){
     var word="";
     var started=false;
     var buffer=false;
+    var points=0;
     var timerInterval = setInterval(function(){
 	if (started){
 	    if (countdown < 0){
@@ -184,12 +185,15 @@ $(document).ready(function(){
 	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
 	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
 	if (data.winner){
-	    ws.emit("roundBuffer");
+	    if(userID==data.uID){
+		point++;
+		ws.emit("roundBuffer");
+	    }
 	}
     });
     //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
-	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false, dID: drawer});
+	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false, uID: userID, dID: drawer});
 	document.getElementById("chatBar").value="";
     }
     //event listeners

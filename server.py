@@ -42,7 +42,7 @@ def disconnected(userID):
 @socketio.on('clientMessage')
 def recievedMessage(data):
     if (word in data["msg"]):
-        if (data["dID"]):
+        if not(data["dID"]):
             data["winner"]=True
         emit('serverMessage', data, broadcast=True)
     else:
