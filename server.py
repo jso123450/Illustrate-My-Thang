@@ -7,7 +7,7 @@ words=["cats","dogs"]
 word=""
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
-drawer=[4,0,1,2,3]
+drawer=[]
 gameStarted=False
 
 @app.route('/', methods=["GET","POST"])
@@ -32,12 +32,17 @@ def newPerson():
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
+        drawer.append(idNumber)
         emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
 def disconnected(userID):
     usedIDs.remove(userID)
     freeIDs.append(userID)
+    drawer.remove(userID)
+    if len(usedIDs)<2:
+        global gameStarted
+        gameStarted=False
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
@@ -52,6 +57,10 @@ def roundSetup():
         changeWord()
         global gameStarted
         gameStarted=True
+        emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
+    elif gameStarted:
+        changeDrawer()
+        changeWord()
         emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
         
 def changeDrawer():
