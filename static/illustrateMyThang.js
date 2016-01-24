@@ -42,12 +42,10 @@ $(document).ready(function(){
 
     var timer = document.getElementById("timer");
     var timerC = timer.getContext("2d");
-    timer.style.left = "1200px";
-    timer.style.top = "20px";
-    timer.style.position = "absolute";
+    timer.style.left = "800px";
+    //timer.style.top = "20px";
+    //timer.style.position = "absolute";
     timerC.font="30px Impact";
-
-
     
     //load on connection
     var ws  = io.connect("localhost:5000");//connects to localhost until server is ready
