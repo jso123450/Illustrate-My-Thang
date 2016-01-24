@@ -127,7 +127,6 @@ $(document).ready(function(){
     };
     //round/game setup
     ws.on("drawerID", function(numID){
-	
 	userID = numID;
 	console.log(userID);
 	ws.emit("roundSetup");
@@ -181,6 +180,7 @@ $(document).ready(function(){
 	console.log("buffer");
 	countdown=5;
 	buffer=true;
+	$("#heading").html("<h1> Illustrate My Thang </h1><h2>The word was "+word+"</h2>");
     });
     
     //After a message is sent to the server and the server broadcasts the message,
