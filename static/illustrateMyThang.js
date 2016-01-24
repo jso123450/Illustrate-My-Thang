@@ -1,10 +1,6 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
 var drawer = false;
-<<<<<<< HEAD
 var countdown = 60;
-=======
-var countdown = 30;//change to 60 later
->>>>>>> 7f8b3a169a59fb7e2bbcf2aced2320adbc28d9fe
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
 context.strokeStyle="black";
@@ -173,11 +169,7 @@ $(document).ready(function(){
 	word=data[1];
     });
     ws.on("roundStart2", function(){
-<<<<<<< HEAD
 	countdown=60;
-=======
-	countdown=30;//change to 60 later
->>>>>>> 7f8b3a169a59fb7e2bbcf2aced2320adbc28d9fe
 	started=true;
     });
     ws.on("roundBuffer2", function(){
