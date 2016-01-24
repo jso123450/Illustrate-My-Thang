@@ -54,20 +54,26 @@ $(document).ready(function(){
     var person = prompt("Please enter your name");//asks user to type in a name
     var word="";
     var started=false;
+    var buffer=false;
     var timerInterval = setInterval(function(){
 	if (started){
-	    if (countdown <= 0){
+	    if (countdown < 0){
 		//clearInterval(timerInterval);
 		timerC.fillStyle = "white";
 		canvas.removeEventListener("mousemove",changeColor);
 		canvas.removeEventListener("mousedown",drawing);
 		canvas.removeEventListener("mouseup",notDraw);
 		canvas.style.cursor="default";
-		countdown=100;
 		if (drawer){
-		    ws.emit("roundSetup");
+		    if (!buffer){
+			//ws.emit("roundSetup");
+			ws.emit("roundBuffer");
+		    } else {
+			buffer=false;
+			ws.emit("roundSetup");
+		    }
 		}
-	    } else{
+	    } else {
 		timerC.fillStyle = "blue";
 		timerC.arc(50,50,40,0,360);
 		timerC.fill();
@@ -165,6 +171,11 @@ $(document).ready(function(){
     ws.on("roundStart2", function(){
 	countdown=30;//change to 60 later
 	started=true;
+    });
+    ws.on("roundBuffer2", function(){
+	console.log("buffer");
+	countdown=5;//change to 10 later
+	buffer=true;
     });
     
     //After a message is sent to the server and the server broadcasts the message,

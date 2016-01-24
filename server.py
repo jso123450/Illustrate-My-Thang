@@ -42,8 +42,8 @@ def disconnected(userID):
 @socketio.on('clientMessage')
 def recievedMessage(data):
     if (word in data["msg"]):
-        
-        emit('serverMessage', data, broadcast=True)
+        a = 1
+    emit('serverMessage', data, broadcast=True)
 
 @socketio.on("roundSetup")
 def roundSetup():
@@ -68,9 +68,9 @@ def changeWord():
 def roundStart():
     emit('roundStart2', broadcast = True)
 
-@socketio.on("roundEnd")
+@socketio.on("roundBuffer")
 def roundEnd():
-    emit("transition",broadcast = True)
+    emit("roundBuffer2", broadcast = True)
 
 @socketio.on("coordinates")
 def coordinates(data):
