@@ -43,17 +43,17 @@ def disconnected(userID):
 def recievedMessage(data):
     if (word in data["msg"]):
         
-    emit('serverMessage', data, broadcast=True)
+        emit('serverMessage', data, broadcast=True)
 
 @socketio.on("roundSetup")
 def roundSetup():
-    if len(usedIDs)==3:#change back to 5 later
+    if len(usedIDs)==5:
         changeDrawer()
         changeWord()
         global gameStarted
         gameStarted=True
         emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
-
+        
 def changeDrawer():
     drawerID=drawer[0]
     drawer.remove(drawerID)

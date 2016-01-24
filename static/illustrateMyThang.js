@@ -1,6 +1,6 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
 var drawer = false;
-var countdown = 60;
+var countdown = 3;//change to 60 later
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
 context.strokeStyle="black";
@@ -53,6 +53,35 @@ $(document).ready(function(){
     var name = "";
     var person = prompt("Please enter your name");//asks user to type in a name
     var word="";
+    var started=false;
+    var timerInterval = setInterval(function(){
+	if (started){
+	    if (countdown <= 0){
+		//clearInterval(timerInterval);
+		timerC.fillStyle = "white";
+		canvas.removeEventListener("mousemove",changeColor);
+		canvas.removeEventListener("mousedown",drawing);
+		canvas.removeEventListener("mouseup",notDraw);
+		canvas.style.cursor="default";
+		countdown=100;
+		if (drawer){
+		    ws.emit("roundSetup");
+		}
+	    } else{
+		timerC.fillStyle = "blue";
+		timerC.arc(50,50,40,0,360);
+		timerC.fill();
+		timerC.fillStyle = "white";
+		if (countdown < 10){
+		    timerC.fillText(countdown,40,60);
+		}
+		else{
+		    timerC.fillText(countdown,35,60);
+		}
+	    }
+	}
+	countdown-=1;
+    },1000);
     
     //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
@@ -132,28 +161,8 @@ $(document).ready(function(){
 	word=data[1];
     });
     ws.on("roundStart2", function(){
-	var timerInterval = setInterval(function(){
-	    if (countdown == 0){
-		clearInterval(timerInterval);
-		canvas.removeEventListener("mousemove",changeColor);
-		canvas.removeEventListener("mousedown",drawing);
-		canvas.removeEventListener("mouseup",notDraw);
-		canvas.style.cursor="default";
-		ws.emit("roundEnd");
-	    };
-	    timerC.fillStyle = "blue";
-	    timerC.arc(50,50,40,0,360);
-	    timerC.fill();
-	    timerC.fillStyle = "white";
-	    if (countdown < 10){
-		timerC.fillText(countdown,40,60);
-	    }
-	    else{
-		timerC.fillText(countdown,35,60);
-	    }
-	    countdown-=1;
-	},1000);
-
+	countdown=3;//change to 60 later
+	started=true;
     });
     
     //After a message is sent to the server and the server broadcasts the message,
@@ -195,21 +204,7 @@ $(document).ready(function(){
 	    lastX = xPos;
 	    lastY = yPos;
 	};
-    });//THIS PART MAKES IT SET COUNTDOWN TO 5 SECOND TRANSITION PERIOD AT THE END EMITS ROUNDSTART AGAIN
-    ws.on("transition",function(){
-	countdown = 5;
-	timerInterval = setInterval(function(){
-	    if (countdown == 0){
-		clearInterval(timerInterval);
-		ws.emit("roundEnd"); //<----FIX THIS
-	    };
-	    timerC.fillStyle = "blue";
-	    timerC.arc(50,50,40,0,360);
-	    timerC.fill();
-	    timerC.fillStyle = "white";
-	    timerC.fillText(countdown,40,60);
-	    countdown-=1;
-	},1000);
+    });
 });
 
 
