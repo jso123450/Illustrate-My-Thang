@@ -151,6 +151,7 @@ $(document).ready(function(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	if (userID == data[0]){
 	    drawer = true;
+	    $("#heading").html("<h1> Illustrate My Thang </h1>");
 	    $("#heading").append($("<h2>The word is "+data[1]+"</h2>"));
 	    pencil.addEventListener("mousedown",function(e){
 		context.lineWidth="6";
