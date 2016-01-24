@@ -118,6 +118,7 @@ $(document).ready(function(){
 	    ws.emit("roundStart");
 	} else {
 	    drawer = false;
+	    $("#heading").html("<h1> Illustrate My Thang </h1>");
 	}
 	word=data[1];
     });
