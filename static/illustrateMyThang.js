@@ -187,7 +187,7 @@ $(document).ready(function(){
     });
     //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
-	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false});
+	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false, dID: drawer});
 	document.getElementById("chatBar").value="";
     }
     //event listeners
