@@ -7,6 +7,7 @@ words=["cats","dogs"]
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
 drawer=[4,0,1,2,3]
+gameStarted=False
 
 @app.route('/', methods=["GET","POST"])
 def index():
@@ -24,6 +25,8 @@ def disconnect():
 def newPerson():
     if len(usedIDs)==5:
         emit('tooMany')
+    elif gameStarted:
+        emit('gameStarted')
     else:
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
@@ -44,6 +47,8 @@ def roundSetup():
     if len(usedIDs)==3:#change back to 5 later
         changeDrawer()
         changeWord()
+        global gameStarted
+        gameStarted=True
         emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
 
 def changeDrawer():

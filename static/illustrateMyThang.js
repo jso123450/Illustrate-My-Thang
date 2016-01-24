@@ -66,6 +66,10 @@ $(document).ready(function(){
 	console.log("toomany");
 	ws.disconnect();
     });
+    ws.on("gameStarted",function(){
+	console.log("game has started.can't join");
+	ws.disconnect();
+    });
     var changeColor = function changeColor(event){
 	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
 	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
