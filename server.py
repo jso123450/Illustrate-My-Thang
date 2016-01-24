@@ -47,8 +47,11 @@ def disconnected(userID):
 @socketio.on('clientMessage')
 def recievedMessage(data):
     if (word in data["msg"]):
-        a = 1
-    emit('serverMessage', data, broadcast=True)
+        if not(data["dID"]):
+            data["winner"]=True
+        emit('serverMessage', data, broadcast=True)
+    else:
+        emit('serverMessage', data, broadcast=True)
 
 @socketio.on("roundSetup")
 def roundSetup():

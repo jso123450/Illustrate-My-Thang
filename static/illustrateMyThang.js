@@ -1,6 +1,6 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
 var drawer = false;
-var countdown = 3;//change to 60 later
+var countdown = 60;
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
 context.strokeStyle="black";
@@ -55,6 +55,7 @@ $(document).ready(function(){
     var word="";
     var started=false;
     var buffer=false;
+    var points=0;
     var timerInterval = setInterval(function(){
 	if (started){
 	    if (countdown < 0){
@@ -108,6 +109,8 @@ $(document).ready(function(){
 	ws.disconnect();
     });
     var changeColor = function changeColor(event){
+	var rect = canvas.getBoundingClientRect(); 
+	
 	xPos=(event.clientX-rect.left)/(rect.right-rect.left)*canvas.width;
 	yPos=(event.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height;
 	ws.emit("coordinates",{"x":xPos,"y":yPos,"color": context.strokeStyle, "width": context.lineWidth,"isDrawing": isDrawing});
@@ -169,12 +172,12 @@ $(document).ready(function(){
 	word=data[1];
     });
     ws.on("roundStart2", function(){
-	countdown=3;//change to 60 later
+	countdown=60;
 	started=true;
     });
     ws.on("roundBuffer2", function(){
 	console.log("buffer");
-	countdown=5;//change to 10 later
+	countdown=5;
 	buffer=true;
     });
     
@@ -183,10 +186,16 @@ $(document).ready(function(){
     ws.on("serverMessage", function(data){
 	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
 	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
+	if (data.winner){
+	    if(userID==data.uID){
+		point++;
+		ws.emit("roundBuffer");
+	    }
+	}
     });
     //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
-	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name});
+	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false, uID: userID, dID: drawer});
 	document.getElementById("chatBar").value="";
     }
     //event listeners
