@@ -133,6 +133,7 @@ $(document).ready(function(){
     });
     ws.on("roundSetup2", function(data){
 	console.log(data[1]);
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	if (userID == data[0]){
 	    drawer = true;
 	    $("#heading").append($("<h2>The word is "+data[1]+"</h2>"));
@@ -179,6 +180,7 @@ $(document).ready(function(){
 	console.log("buffer");
 	countdown=5;
 	buffer=true;
+	$("#heading").html("<h1> Illustrate My Thang </h1><h2>The word was "+word+"</h2>");
     });
     
     //After a message is sent to the server and the server broadcasts the message,
@@ -188,7 +190,7 @@ $(document).ready(function(){
 	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
 	if (data.winner){
 	    if(userID==data.uID){
-		point++;
+		points++;
 		ws.emit("roundBuffer");
 	    }
 	}
