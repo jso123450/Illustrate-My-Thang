@@ -1,6 +1,6 @@
 /* --------------------------- DRAWING & FORMATTING -----------------------*/
 var drawer = false;
-var countdown = 30;//change to 60 later
+var countdown = 60;
 var canvas = document.getElementById("drawcanvas");
 var context = canvas.getContext("2d");
 context.strokeStyle="black";
@@ -55,6 +55,7 @@ $(document).ready(function(){
     var word="";
     var started=false;
     var buffer=false;
+    var points=0;
     var timerInterval = setInterval(function(){
 	if (started){
 	    if (countdown < 0){
@@ -91,7 +92,8 @@ $(document).ready(function(){
     
     //When called, function will tell server the client has joined and prompts user for a name
     var joined = function joined(){
-	ws.emit("joined");
+	console.log(person);
+	ws.emit("joined",person);
 	person;
 	name = person;
     }
@@ -99,10 +101,12 @@ $(document).ready(function(){
     //Forces client to disconnect if there are already 5 clients connected
     ws.on("tooMany", function(){
 	console.log("toomany");
+	$("#heading").html("<h1>GAME ROOM IS FULL. PLEASE TRY LATER</h1>");
 	ws.disconnect();
     });
     ws.on("gameStarted",function(){
 	console.log("game has started.can't join");
+	$("#heading").html("<h1>GAME HAS ALREADY STARTED. PLEASE TRY LATER </h1>");
 	ws.disconnect();
     });
     var changeColor = function changeColor(event){
@@ -128,8 +132,23 @@ $(document).ready(function(){
 	console.log(userID);
 	ws.emit("roundSetup");
     });
+    ws.on('chatAlert', function(person){
+	$("#chat").append("<div class='chat-box-left'>"+person+" has joined.</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
+    });
+    ws.on('chatAlertDC', function(person){
+	$("#chat").append("<div class='chat-box-left'>"+person+" has left.</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
+    });
+    ws.on('peopleOnline', function(names){
+	$("#people").html("");
+	console.log(names)
+	for(i=0; i<names.length;i++){
+	    $("#people").append("<li><a href='#'><span class='fa fa-circle-o-notch'></span>&nbsp;"+names[i]+"</a></li><li class='divider'></li>")
+	}
+    });	
+	
     ws.on("roundSetup2", function(data){
 	console.log(data[1]);
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	if (userID == data[0]){
 	    drawer = true;
 	    $("#heading").append($("<h2>The word is "+data[1]+"</h2>"));
@@ -169,24 +188,31 @@ $(document).ready(function(){
 	word=data[1];
     });
     ws.on("roundStart2", function(){
-	countdown=30;//change to 60 later
+	countdown=60;
 	started=true;
     });
     ws.on("roundBuffer2", function(){
 	console.log("buffer");
-	countdown=5;//change to 10 later
+	countdown=5;
 	buffer=true;
+	$("#heading").html("<h1> Illustrate My Thang </h1><h2>The word was "+word+"</h2>");
     });
     
     //After a message is sent to the server and the server broadcasts the message,
     //the message and the sender is added to the chat box
     ws.on("serverMessage", function(data){
 	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
-	$("#chat").append("<div class='chat-box-left'>"+data.msg+"</div><div class='chat-box-name-left'>"+data.nam+"</div><hr class='hr-clas'/>");
+	$("#chat").append("<div class='chat-box-right'>"+data.msg+"</div><div class='chat-box-name-right'>"+data.nam+"</div><hr class='hr-clas'/>");
+	if (data.winner){
+	    if(userID==data.uID){
+		points++;
+		ws.emit("roundBuffer");
+	    }
+	}
     });
     //Sends the server the name and message of the client
     var sendMessage = function sendMessage(){
-	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name});
+	ws.emit("clientMessage", {msg: document.getElementById("chatBar").value, nam: name, winner: false, uID: userID, dID: drawer});
 	document.getElementById("chatBar").value="";
     }
     //event listeners
@@ -194,7 +220,7 @@ $(document).ready(function(){
     sendMsg.addEventListener("click", sendMessage);
     
     window.onunload = function leaving(){
-	ws.emit("disconnected",userID);
+	ws.emit("disconnected",[userID,name]);
     }
     ws.on("test", function(data){
 	console.log(data);

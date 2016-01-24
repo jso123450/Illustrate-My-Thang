@@ -7,7 +7,8 @@ words=["cats","dogs"]
 word=""
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
-drawer=[4,0,1,2,3]
+drawer=[]
+names=[]
 gameStarted=False
 
 @app.route('/', methods=["GET","POST"])
@@ -23,27 +24,41 @@ def disconnect():
     emit('disconnected')
 '''
 @socketio.on('joined')
-def newPerson():
+def newPerson(person):
     if len(usedIDs)==5:
         emit('tooMany')
     elif gameStarted:
         emit('gameStarted')
     else:
+        names.append(person)
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
+        drawer.append(idNumber)
+        emit('chatAlert', person, broadcast=True)
+        emit('peopleOnline', names, broadcast=True)
         emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
-def disconnected(userID):
-    usedIDs.remove(userID)
-    freeIDs.append(userID)
+def disconnected(userInfo):
+    usedIDs.remove(userInfo[0])
+    freeIDs.append(userInfo[0])
+    drawer.remove(userInfo[0])
+    names.remove(userInfo[1])
+    if len(usedIDs)<2:
+        global gameStarted
+        gameStarted=False
+    emit('chatAlertDC', userInfo[1], broadcast=True)
+    emit('peopleOnline', names, broadcast=True)
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
     if (word in data["msg"]):
-        a = 1
-    emit('serverMessage', data, broadcast=True)
+        if not(data["dID"]):
+            data["winner"]=True
+        emit('serverMessage', data, broadcast=True)
+    else:
+        emit('serverMessage', data, broadcast=True)
 
 @socketio.on("roundSetup")
 def roundSetup():
@@ -52,6 +67,10 @@ def roundSetup():
         changeWord()
         global gameStarted
         gameStarted=True
+        emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
+    elif gameStarted:
+        changeDrawer()
+        changeWord()
         emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
         
 def changeDrawer():
