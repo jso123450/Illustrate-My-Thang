@@ -8,6 +8,7 @@ word=""
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
 drawer=[]
+names=[]
 gameStarted=False
 
 @app.route('/', methods=["GET","POST"])
@@ -23,26 +24,30 @@ def disconnect():
     emit('disconnected')
 '''
 @socketio.on('joined')
-def newPerson():
+def newPerson(person):
     if len(usedIDs)==5:
         emit('tooMany')
     elif gameStarted:
         emit('gameStarted')
     else:
+        names.append(person)
         idNumber=freeIDs[0]
         freeIDs.remove(freeIDs[0])
         usedIDs.append(idNumber)
         drawer.append(idNumber)
+        emit('chatAlert', person, broadcast=True)
         emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
-def disconnected(userID):
-    usedIDs.remove(userID)
-    freeIDs.append(userID)
-    drawer.remove(userID)
+def disconnected(userInfo):
+    usedIDs.remove(userInfo[0])
+    freeIDs.append(userInfo[0])
+    drawer.remove(userInfo[0])
+    names.remove(userInfo[1])
     if len(usedIDs)<2:
         global gameStarted
         gameStarted=False
+    emit('chatAlertDC', userInfo[1], broadcast=True)
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
