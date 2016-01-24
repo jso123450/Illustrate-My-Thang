@@ -138,6 +138,14 @@ $(document).ready(function(){
     ws.on('chatAlertDC', function(person){
 	$("#chat").append("<div class='chat-box-left'>"+person+" has left.</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
     });
+    ws.on('peopleOnline', function(names){
+	$("#people").html("");
+	console.log(names)
+	for(i=0; i<names.length;i++){
+	    $("#people").append("<li><a href='#'><span class='fa fa-circle-o-notch'></span>&nbsp;"+names[i]+"</a></li><li class='divider'></li>")
+	}
+    });	
+	
     ws.on("roundSetup2", function(data){
 	console.log(data[1]);
 	context.clearRect(0, 0, canvas.width, canvas.height);
