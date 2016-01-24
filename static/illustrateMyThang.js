@@ -100,10 +100,12 @@ $(document).ready(function(){
     //Forces client to disconnect if there are already 5 clients connected
     ws.on("tooMany", function(){
 	console.log("toomany");
+	$("#heading").html("<h1>GAME ROOM IS FULL. PLEASE TRY LATER</h1>");
 	ws.disconnect();
     });
     ws.on("gameStarted",function(){
 	console.log("game has started.can't join");
+	$("#heading").html("<h1>GAME HAS ALREADY STARTED. PLEASE TRY LATER </h1>");
 	ws.disconnect();
     });
     var changeColor = function changeColor(event){
