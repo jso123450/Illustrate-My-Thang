@@ -133,10 +133,10 @@ $(document).ready(function(){
 	ws.emit("roundSetup");
     });
     ws.on('chatAlert', function(person){
-	$("#chat").append("<div class='chat-box-left'>"+person+" has joined.</div><hr class='hr-clas'/>");
+	$("#chat").append("<div class='chat-box-left'>"+person+" has joined.</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
     });
     ws.on('chatAlertDC', function(person){
-	$("#chat").append("<div class='chat-box-left'>"+person+" has left.</div><hr class='hr-clas'/>");
+	$("#chat").append("<div class='chat-box-left'>"+person+" has left.</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
     });
     ws.on("roundSetup2", function(data){
 	console.log(data[1]);
