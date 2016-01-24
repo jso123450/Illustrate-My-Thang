@@ -101,19 +101,24 @@ $(document).ready(function(){
 	    });
 	    red.addEventListener("mousedown",function(e){
 		context.strokeStyle="red";
+		context.lineWidth="6";
 	    });
 	    blue.addEventListener("mousedown",function(e){
 		context.strokeStyle="blue";
+		context.lineWidth="6";
 	    });
 	    green.addEventListener("mousedown",function(e){
 		context.strokeStyle="green";
+		context.lineWidth="6";
 	    });
 	    yellow.addEventListener("mousedown",function(e){
 		context.strokeStyle="yellow";
+		context.lineWidth="6";
 	    });
 	    canvas.addEventListener("mousemove",changeColor);
 	    canvas.addEventListener("mousedown",drawing);
 	    canvas.addEventListener("mouseup",notDraw);
+	    canvas.addEventListener("mouseout",notDraw);
 	    ws.emit("roundStart");
 	} else {
 	    drawer = false;
