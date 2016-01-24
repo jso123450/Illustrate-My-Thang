@@ -23,98 +23,91 @@
   </div>
 
   <!-- Main Page Content -->
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span8">
-        <!-- Canvas -->
+  <div class="container">
+    <div class="row pad-top pad-bottom">
+      <!-- Drawing -->
+      <div class="col-lg-6 col-md-6 col-sm-6">
+	<!-- Canvas -->
 	<canvas id="drawcanvas" width="600" height="600"></canvas>
 	<canvas id="timer" width="100" height="100"></canvas>
+	<!-- Drawing Tools -->
+	<button data-toggle="collapse" data-target="#drawingTools">Drawing Tools</button>
+	<div id="drawingTools">
+	  <img src="pencil.jpg" alt="pencil" height="50" width="50" id="pencil">
+	  <img src="eraser.jpg" alt="eraser" height="50" width="50" id="eraser">
+	  <img src="blue.jpg" alt="blue" height="50" width="50" id="blue">
+	  <img src="red.jpg" alt="red" height="50" width="50" id="red">
+	  <img src="green.jpg" alt="green" height="50" width="50" id="green">
+	  <img src="yellow.jpg" alt="yellow" height="50" width="50" id="yellow">
+	</div>
       </div>
-      <div class="span4">
-	  <!-- Chat -->
-	  <div class="container">
-	    <div class="row pad-top pad-bottom"> 
-              <div class=" col-lg-6 col-md-6 col-sm-6">
-		<div class="chat-box-div">
-                  <div class="chat-box-head">
-                    CHAT HISTORY
-                  </div>
-		  <div id="chat" class="panel-body chat-box-main">
-		    <!-- Sent messages will be appended here in the same style -->
-		    <div class="chat-box-left">
-                      Hello! Welcome to Illustrate My Thang.
-                    </div>
-                    <div class="chat-box-name-left">
-                      -  Server Message
-                    </div>
-		    <hr class="hr-clas" />
-		    <div class="chat-box-left">
-                      This will be one of the main interfaces you will use to play the game.
-                    </div>
-                    <div class="chat-box-name-left">
-                      -  Server Message
-                    </div>
-                    <hr class="hr-clas" />
-		    <div class="chat-box-left">
-                      <mark> Illustrate My Thang </mark> is a remake of OMGPOP's hit game, <mark>Draw My Thing!</mark>.
-		      It is currently being developed by students as their final project for Software Development.
-		      The team is composed of: Ho Yin Ho, Johnny So, Javis Wu, and Kah Soon Yap.
-                    </div>
-                    <div class="chat-box-name-left">
-                      -  Server Message
-                    </div>
-		    <hr class="hr-clas" />
-		    <div class="chat-box-left">
-		      The game works as follows:
-		      <ol id="rules">
-			<li>Upon three people connecting, the game will start.</li>
-			<li>The first player to connect will be assigned as the <mark>drawer</mark> for the round.</li>
-			<li>Only the round's <mark>drawer</mark> will be able to draw on the canvas and utilize the drawing tools.</li>
-			<li>The round's <mark>drawer</mark> is assigned a word to draw it on the canvas by using the given, various tools.</li>
-			<li>Whoever can guess the word in the time limit will be given points. However, the first person to guess will be given extra.</li>
-			<li>The <mark>drawer</mark> is awarded points as well, if anybody is able to guess the word (only once per round).</li>
-			<li>When the countdown hits 0, a new round will begin.</li>
-			<li>When two rounds have passed, the game is over, and the person who has the most points at the end will win.</li>
-                    </div>
-                    <div class="chat-box-name-left">
-                      -  Server Message
-                    </div>
-		    <hr class="hr-clas" />
-		    <div class="chat-box-left">
-                      Have fun playing!
-                    </div>
-                    <div class="chat-box-name-left">
-                      -  Server Message
-                    </div>
-		    <hr class="hr-clas" />
-		  </div>
-                  <div class="chat-box-footer">
-                    <div class="input-group">
-                      <input id="chatBar" type="text" class="form-control" placeholder="Enter Text Here...">
-                      <span class="input-group-btn">
-                        <button id="sendMsg" class="btn btn-info" type="button">SEND</button>
-                      </span>
-                    </div>
-                  </div>
-		</div>
-	      </div>
-	    </div>
-	  </div> 
-  <br>
-
-  <!-- Drawing Tools -->
-  <button data-toggle="collapse" data-target="#drawingTools">Drawing Tools</button>
-  <div id="drawingTools">
-    <img src="pencil.jpg" alt="pencil" height="100" width="100" id="pencil">
-    <img src="eraser.jpg" alt="eraser" height="100" width="100" id="eraser">
-    <img src="blue.jpg" alt="blue" height="100" width="100" id="blue">
-    <img src="red.jpg" alt="red" height="100" width="100" id="red">
-    <img src="green.jpg" alt="green" height="100" width="100" id="green">
-    <img src="yellow.jpg" alt="yellow" height="100" width="100" id="yellow">
-  </div>
-
-  <br>
-  <br>
+      <!-- Chat -->
+      <div class="col-lg-6 col-md-6 col-sm-6">
+	<div class="chat-box-div">
+          <div class="chat-box-head">
+            CHAT HISTORY
+          </div>
+	  <div id="chat" class="panel-body chat-box-main">
+	    <!-- Sent messages will be appended here in the same style -->
+	    <div class="chat-box-left">
+              Hello! Welcome to Illustrate My Thang.
+            </div>
+            <div class="chat-box-name-left">
+              -  Server Message
+            </div>
+	    <hr class="hr-clas" />
+	    <div class="chat-box-left">
+              This will be one of the main interfaces you will use to play the game.
+            </div>
+            <div class="chat-box-name-left">
+              -  Server Message
+            </div>
+            <hr class="hr-clas" />
+	    <div class="chat-box-left">
+              <mark> Illustrate My Thang </mark> is a remake of OMGPOP's hit game, <mark>Draw My Thing!</mark>.
+	      It is currently being developed by students as their final project for Software Development.
+	      The team is composed of: Ho Yin Ho, Johnny So, Javis Wu, and Kah Soon Yap.
+            </div>
+            <div class="chat-box-name-left">
+              -  Server Message
+            </div>
+	    <hr class="hr-clas" />
+	    <div class="chat-box-left">
+	      The game works as follows:
+	      <ol id="rules">
+		<li>Upon three people connecting, the game will start.</li>
+		<li>The first player to connect will be assigned as the <mark>drawer</mark> for the round.</li>
+		<li>Only the round's <mark>drawer</mark> will be able to draw on the canvas and utilize the drawing tools.</li>
+		<li>The round's <mark>drawer</mark> is assigned a word to draw it on the canvas by using the given, various tools.</li>
+		<li>Whoever can guess the word in the time limit will be given points. However, the first person to guess will be given extra.</li>
+		<li>The <mark>drawer</mark> is awarded points as well, if anybody is able to guess the word (only once per round).</li>
+		<li>When the countdown hits 0, a new round will begin.</li>
+		<li>When two rounds have passed, the game is over, and the person who has the most points at the end will win.</li>
+            </div>
+            <div class="chat-box-name-left">
+              -  Server Message
+            </div>
+	    <hr class="hr-clas" />
+	    <div class="chat-box-left">
+              Have fun playing!
+            </div>
+            <div class="chat-box-name-left">
+              -  Server Message
+            </div>
+	    <hr class="hr-clas" />
+	  </div>
+          <div class="chat-box-footer">
+            <div class="input-group">
+              <input id="chatBar" type="text" class="form-control" placeholder="Enter Text Here...">
+              <span class="input-group-btn">
+                <button id="sendMsg" class="btn btn-info" type="button">SEND</button>
+              </span>
+            </div>
+          </div>
+	</div>
+      </div>
+    </div>
+  </div> 
 
 </body>
 
