@@ -55,7 +55,6 @@ $(document).ready(function(){
     var word="";
     var started=false;
     var buffer=false;
-    var points=0;
     var timerInterval = setInterval(function(){
 	if (started){
 	    if (countdown < 0){
@@ -67,7 +66,6 @@ $(document).ready(function(){
 		canvas.style.cursor="default";
 		if (drawer){
 		    if (!buffer){
-			//ws.emit("roundSetup");
 			ws.emit("roundBuffer");
 		    } else {
 			buffer=false;
@@ -207,7 +205,6 @@ $(document).ready(function(){
 	if (data.winner){
 	    $("#chat").append("<div class='chat-box-left'>"+data.nam+" guessed the word!</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
 	    if(userID==data.uID){
-		points++;
 		ws.emit("roundBuffer");
 	    }
 	} else {

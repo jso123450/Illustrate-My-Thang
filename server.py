@@ -4,7 +4,7 @@ from flask.ext.socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 words=["cats","dogs"]
-word=""
+word= "abcdefghijklmnopqrstuvwxyz"
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
 drawer=[]
@@ -15,6 +15,7 @@ gameStarted=False
 @app.route('/', methods=["GET","POST"])
 def index():
     return render_template('index.html')
+
 @socketio.on('joined')
 def newPerson(person):
     if len(usedIDs)==5:
@@ -38,7 +39,7 @@ def disconnected(userInfo):
     freeIDs.append(userInfo[0])
     drawer.remove(userInfo[0])
     names.remove(userInfo[1])
-    #points[temp]=0
+    points[temp]=0
     if len(usedIDs)<2:
         global gameStarted
         gameStarted=False
@@ -47,13 +48,17 @@ def disconnected(userInfo):
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
+    print (word in data["msg"])
+    print (word)
     if (word in data["msg"]):
         if not(data["dID"]):
             data["winner"]=True
             points[data["uID"]]=points[data["uID"]]+1
-    emit('serverMessage', data, broadcast=True)
-    emit('peopleOnline', [names, points, usedIDs], broadcast=True)
-
+        emit('serverMessage', data, broadcast=True)
+        emit('peopleOnline', [names, points, usedIDs], broadcast=True)
+    else:
+        emit('serverMessage', data, broadcast=True)
+        
 @socketio.on("roundSetup")
 def roundSetup():
     if len(usedIDs)==5:
@@ -73,9 +78,11 @@ def changeDrawer():
     drawer.append(drawerID)
 
 def changeWord():
+    temp=words[0]
+    words.remove(temp)
+    words.append(temp)
+    global word
     word=words[0]
-    words.remove(word)
-    words.append(word)
 
 @socketio.on("roundStart")
 def roundStart():
