@@ -28,10 +28,9 @@
 # To Run Locally
 - Make a virtualenv in which flask-socketio, gevent, and gevent-websocket are all installed
 - Clone the repository
-- Change line 51 of illustrateMyThang.js 
-  <code> var ws  = io.connect("illustratemythang.chickenkiller.com:5000"); 
-  to
-  <code> var ws = io.connect("localhost:5000"); </code>
+- Change line 51 of illustrateMyThang.js
+   - <code> var ws  = io.connect("illustratemythang.chickenkiller.com:5000"); to 
+   - <code> var ws = io.connect("localhost:5000"); </code>
 - Source activate your virtualenv, and then python server.py in the main directory
 - To test, open up several tabs and connect to localhost:5000
 - Enjoy :)
