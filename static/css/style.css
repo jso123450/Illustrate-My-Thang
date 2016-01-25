@@ -4,7 +4,8 @@
 ======================================= */
 
 body {
-   font-family:Verdana;
+    font-family:Verdana;
+    background-image: url("background.jpg");
 }
 .pad-top {
     padding-top:30px;
