@@ -12,7 +12,7 @@ body {
     padding-top:30px;
 }
 .pad-bottom {
-     padding-bottom:30px;
+    padding-bottom:30px;
 }
 /*======================================
     CHAT BOX STYLES
@@ -25,6 +25,7 @@ body {
 .chat-box-main {
     max-height:500px;
     overflow:auto;
+    background-color: #FFFFFF;
 }
 .chat-box-div {
     border:2px solid #A12EB3;
