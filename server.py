@@ -3,7 +3,9 @@ from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-words=["cats","dogs"]
+words=["cats","dogs","whale","flower","love","donut","horse","birds","clock",
+"leaf","tree","computer","phone","french fries","skirt","Statue of Liberty",
+"flag","USA","Earth","sphere","desk","book","magazine","watch","newspaper","doll","jacket","folder","chair","closet"]
 word= "abcdefghijklmnopqrstuvwxyz"
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
