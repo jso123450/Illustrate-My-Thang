@@ -15,15 +15,6 @@ gameStarted=False
 @app.route('/', methods=["GET","POST"])
 def index():
     return render_template('index.html')
-'''
-@socketio.on('connect')
-def connection():
-    emit('joined')
-
-@socketio.on('disconnect')
-def disconnect():
-    emit('disconnected')
-'''
 @socketio.on('joined')
 def newPerson(person):
     if len(usedIDs)==5:
