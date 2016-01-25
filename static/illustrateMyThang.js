@@ -202,13 +202,15 @@ $(document).ready(function(){
     //After a message is sent to the server and the server broadcasts the message,
     //the message and the sender is added to the chat box
     ws.on("serverMessage", function(data){
-	//$("#chat").append("<li class='list-group'>" + data.nam + ": " + data.msg + "</li>");
-	$("#chat").append("<div class='chat-box-right'>"+data.msg+"</div><div class='chat-box-name-right'>"+data.nam+"</div><hr class='hr-clas'/>");
+	console.log(data.winner);
 	if (data.winner){
+	    $("#chat").append("<div class='chat-box-left'>"+data.nam+" guessed the word!</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
 	    if(userID==data.uID){
 		points++;
 		ws.emit("roundBuffer");
 	    }
+	} else {
+	    $("#chat").append("<div class='chat-box-right'>"+data.msg+"</div><div class='chat-box-name-right'>"+data.nam+"</div><hr class='hr-clas'/>");
 	}
     });
     //Sends the server the name and message of the client
