@@ -2,10 +2,10 @@
 
 # Development Team Members
 - each member was mainly responsible for his parts of the project, but did contribute to other parts as well that may not be fully tracked by commits (working on the same computers, etc.)
-- Johnny So : Styling, Middleware, Coordinating the Group (code structure, layout, method)
-- Ho Yin Ho : Front-End (drawing, JQuery & Javascript)
-- Kah Soon Yap : WebSockets (commmunication)
-- Javis Wu : WebSockets (communication)
+- <b>Johnny So</b> : Styling, Middleware, Coordinating the Group (code structure, layout, method)
+- <b>Ho Yin Ho</b> : Front-End (drawing, JQuery & Javascript)
+- <b>Kah Soon Yap</b> : WebSockets (commmunication)
+- <b>Javis Wu</b> : WebSockets (communication)
 
 # Description
 - A remake of OMGPOP's classic hit , Draw My Thing!, Illustrate My Thang attempts to recreate the beloved old game using concepts and a toolset explored in post AP elective, Stuyvesant's Software Development course. When five players connect to the server, the game begins. The first drawer is the second player to have connected - he is given 60 seconds to draw his given word. The other players have 60 seconds to guess the drawer's given word -> if they can guess it, they are awarded points. If nobody is able to guess the word in 60 seconds, the round is over and nobody receives points. Whoever has the most points at the end of the game will be the winner.
@@ -26,7 +26,7 @@
 - Users can experience playing through the game at http://illustratemythang.chickenkiller.com:5000, or http://104.131.91.167:5000.
 
 # To Do List 
-- (Features to be implemented in later versions)
+- (features to be implemented in later versions)
 - User Accounts (with logins, number of wins, etc.)
 - Support for Multiple Rooms (able to join whichever room you please)
 - Changing the Mouse Pointer (depending on drawing tool)
