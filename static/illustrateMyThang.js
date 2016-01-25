@@ -55,7 +55,8 @@ $(document).ready(function(){
     timerC.font="30px Impact";
     
     // Connects to the Server on port 5000
-    var ws  = io.connect("illustratemythang.chickenkiller.com:5000");
+    //var ws  = io.connect("illustratemythang.chickenkiller.com:5000");
+    var ws = io.connect("localhost:5000");
     
     // The default userID (which will be changed)
     var userID = -1;

@@ -1,5 +1,6 @@
 from flask import Flask, render_template 
 from flask.ext.socketio import SocketIO, emit
+from random import randint
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -68,11 +69,11 @@ def roundSetup():
         changeWord()
         global gameStarted
         gameStarted=True
-        emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
+        emit("roundSetup2", [drawer[0], word], broadcast=True)
     elif gameStarted:
         changeDrawer()
         changeWord()
-        emit("roundSetup2", [drawer[0], words[0]], broadcast=True)
+        emit("roundSetup2", [drawer[0], word], broadcast=True)
         
 def changeDrawer():
     drawerID=drawer[0]
@@ -80,11 +81,10 @@ def changeDrawer():
     drawer.append(drawerID)
 
 def changeWord():
-    temp=words[0]
-    words.remove(temp)
-    words.append(temp)
+    temp=words[randint(0,len(words))]
     global word
-    word=words[0]
+    word=temp
+    print word
 
 @socketio.on("roundStart")
 def roundStart():
