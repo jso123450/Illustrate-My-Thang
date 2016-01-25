@@ -4,7 +4,7 @@ from flask.ext.socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 words=["cats","dogs"]
-word="cats"
+word="abcdefghijklmnopqrstuvwxyz"
 freeIDs=[0,1,2,3,4]
 usedIDs=[]
 drawer=[]
