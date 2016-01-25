@@ -138,16 +138,17 @@ $(document).ready(function(){
     ws.on('chatAlertDC', function(person){
 	$("#chat").append("<div class='chat-box-left'>"+person+" has left.</div><div class='chat-box-name-left'>Server Message</div><hr class='hr-clas'/>");
     });
-    ws.on('peopleOnline', function(names){
+    ws.on('peopleOnline', function(data){
+	console.log(data);
 	$("#people").html("");
-	console.log(names)
-	for(i=0; i<names.length;i++){
-	    $("#people").append("<li><a href='#'><span class='fa fa-circle-o-notch'></span>&nbsp;"+names[i]+"</a></li><li class='divider'></li>")
+	for(i=0; i<data[0].length;i++){
+	    $("#people").append("<li><a href='#'><span class='fa fa-circle-o-notch'></span>&nbsp;"+data[0][i]+": "+data[1][data[2][i]]+"</a></li><li class='divider'></li>")
 	}
     });	
 	
     ws.on("roundSetup2", function(data){
-	console.log(data[1]);
+	console.log("asdasd");
+	//console.log(data[1]);
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	if (userID == data[0]){
 	    drawer = true;

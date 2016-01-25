@@ -9,6 +9,7 @@ freeIDs=[0,1,2,3,4]
 usedIDs=[]
 drawer=[]
 names=[]
+points=[0, 0, 0, 0, 0]
 gameStarted=False
 
 @app.route('/', methods=["GET","POST"])
@@ -36,29 +37,31 @@ def newPerson(person):
         usedIDs.append(idNumber)
         drawer.append(idNumber)
         emit('chatAlert', person, broadcast=True)
-        emit('peopleOnline', names, broadcast=True)
+        emit('peopleOnline', [names, points, usedIDs], broadcast=True)
         emit('drawerID', idNumber)
 
 @socketio.on('disconnected')
 def disconnected(userInfo):
+    temp=names.index(userInfo[1])
     usedIDs.remove(userInfo[0])
     freeIDs.append(userInfo[0])
     drawer.remove(userInfo[0])
     names.remove(userInfo[1])
+    #points[temp]=0
     if len(usedIDs)<2:
         global gameStarted
         gameStarted=False
     emit('chatAlertDC', userInfo[1], broadcast=True)
-    emit('peopleOnline', names, broadcast=True)
+    emit('peopleOnline', [names, points, usedIDs], broadcast=True)
 
 @socketio.on('clientMessage')
 def recievedMessage(data):
     if (word in data["msg"]):
         if not(data["dID"]):
             data["winner"]=True
-        emit('serverMessage', data, broadcast=True)
-    else:
-        emit('serverMessage', data, broadcast=True)
+            points[data["uID"]]=points[data["uID"]]+1
+    emit('serverMessage', data, broadcast=True)
+    emit('peopleOnline', [names, points, usedIDs], broadcast=True)
 
 @socketio.on("roundSetup")
 def roundSetup():
