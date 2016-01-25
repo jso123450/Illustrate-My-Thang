@@ -23,15 +23,19 @@
 
 # Server
 - The (Alpha) Version 1.0 of the project is hosted on a DigitalOcean server, and is registered under the FreeDNS chickenkiller.com..
-- Users can experience playing through the game at illustratemythang.chickenkiller.com:5000, or 104.131.91.167:5000.
+- Users can experience playing through the game at http://illustratemythang.chickenkiller.com:5000, or http://104.131.91.167:5000.
 
-# To Do List (Features to be implemented in later versions)
+# To Do List 
+- (Features to be implemented in later versions)
 - User Accounts (with logins, number of wins, etc.)
 - Support for Multiple Rooms (able to join whichever room you please)
 - Changing the Mouse Pointer (depending on drawing tool)
 - Automatically Scrolling Down (upon sent messages)
 - Alerts (one type for server messages, another for chat messages)
 - Mobile Support (?)
+
+# Known Bug List
+- Refreshing the webpage counts as different connections (refreshing one page 5x will start the game)
 
 # References
 - A Simple WebSocket Server
