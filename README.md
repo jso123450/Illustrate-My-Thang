@@ -11,11 +11,11 @@
 - A remake of OMGPOP's classic hit , Draw My Thing!, Illustrate My Thang attempts to recreate the beloved old game using concepts and a toolset explored in post AP elective, Stuyvesant's Software Development course. When five players connect to the server, the game begins. The first drawer is the second player to have connected - he is given 60 seconds to draw his given word. The other players have 60 seconds to guess the drawer's given word -> if they can guess it, they are awarded points. If nobody is able to guess the word in 60 seconds, the round is over and nobody receives points. Whoever has the most points at the end of the game will be the winner.
 
 # How It Works
-- WebSockets used for Networking
-- Hosted on a DigitalOcean server
-- Javascript/JQuery for an interactive UI experience
-- Bootstrap to enhance the styling of the webpage
-- Python/Javascript files in the backend
+- <b>WebSockets</b> used for Networking
+- Hosted on a <b>DigitalOcean</b> server
+- <b>Javascript/JQuery</b> for an interactive UI experience
+- <b>Bootstrap</b> to enhance the styling of the webpage
+- <b>Python/Javascript<b> files in the backend
 
 # Youtube Link
 - A 90 second video introducing our project can be found here (https://www.youtube.com/watch?v=t55bjHa1j7U).
@@ -24,6 +24,17 @@
 # Server
 - The (Alpha) Version 1.0 of the project is hosted on a DigitalOcean server, and is registered under the FreeDNS chickenkiller.com..
 - Users can experience playing through the game at http://illustratemythang.chickenkiller.com:5000, or http://104.131.91.167:5000.
+
+# To Run Locally
+- Make a virtualenv in which flask-socketio, gevent, and gevent-websocket are all installed
+- Clone the repository
+- Change line 51 of illustrateMyThang.js 
+  <code> var ws  = io.connect("illustratemythang.chickenkiller.com:5000"); 
+  to
+  <code> var ws = io.connect("localhost:5000"); </code>
+- Source activate your virtualenv, and then python server.py in the main directory
+- To test, open up several tabs and connect to localhost:5000
+- Enjoy :)
 
 # To Do List 
 - (features to be implemented in later versions)
