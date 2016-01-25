@@ -48,7 +48,7 @@ $(document).ready(function(){
     timerC.font="30px Impact";
     
     //load on connection
-    var ws  = io.connect("localhost:5000");//connects to localhost until server is ready
+    var ws  = io.connect("illustratemythang.chickenkiller.com:5000");//connects to localhost until server is ready
     var userID = -1; //creates default value for id number
     var name = "";
     var person = prompt("Please enter your name");//asks user to type in a name
